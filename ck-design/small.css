@@ -1,0 +1,103 @@
+body {
+    /* background-color: white; */
+    /* background-image: url('images/body.png'); */
+    /* background-repeat: no-repeat; */
+    background-position: 100px 50%;
+    width: 850px;
+}
+
+#vita {
+    position: relative;
+    left: 50%;
+    margin-left: 350px;
+}
+
+#vita_title {
+    position: absolute;
+    top: 320px;
+    margin-left: -30px;
+}
+
+#portfolio {
+    position: relative;
+    margin-left: 250px;
+}
+
+#portfolio_title {
+    position: absolute;
+    top: 1550px;
+}
+
+#editorial {
+    background-image: url('images/portfolio/editorial_mouseover.png');
+}
+
+#editorial_bubble {
+    background-image: url('images/portfolio/editorial_bubble.png');
+}
+
+#cd {
+    background-image: url('images/portfolio/cd_mouseover.png');
+}
+
+#cd_bubble {
+    background-image: url('images/portfolio/cd_bubble.png');
+}
+
+#multimedia {
+    background-image: url('images/portfolio/multimedia_mouseover.png');
+}
+
+#multimedia_bubble {
+    background-image: url('images/portfolio/multimedia_bubble.png');
+}
+
+#etc {
+    background-image: url('images/portfolio/etc_mouseover.png');
+}
+
+#etc_bubble {
+    background-image: url('images/portfolio/etc_bubble.png');
+}
+
+
+/* .bubbleHover { */
+/*     transition: none; */
+/*     -webkit-transition: none; */
+/*     -moz-transition: none; */
+/*     -ms-transition: none; */
+/*     -o-transition: none; */
+/* } */
+
+/* .beforeBubbleHover { */
+/*     -ms-transform: scale(1,1); /\* IE 9 *\/ */
+/*     -moz-transform: scale(1,1); /\* Firefox *\/ */
+/*     -webkit-transform: scale(1,1); /\* Safari and Chrome *\/ */
+/*     -o-transform: scale(1,1); */
+/* } */
+
+#contact {
+    position: relative;
+    margin-left: 240px;
+}
+
+#contact_title {
+    position: absolute;
+    top: 2315px;
+}
+
+#impressum {
+    position: relative;
+    margin-left: 240px;
+    top: 3175px;
+}
+
+#impressum_title {
+    position: absolute;
+}
+
+@media (max-device-width: 480px) {
+    #nav {
+        display: none;
+    }
+}
