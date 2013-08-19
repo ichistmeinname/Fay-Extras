@@ -3,7 +3,6 @@
 module FayExtras where
 
 import Prelude
-import FFI
 import JQuery
 import ConstantsAndHelpers
 import FFIExtras
@@ -43,21 +42,28 @@ addHref _ element = do
 --    navigation :: Fay ()
 --    navigation = do
 --      navigationElements <- selectClass "nav-item"
---      each addActive navigationElements
+--      each (addActive deactivateNavSlide) navigationElements
 --      return ()
-addActive :: (JQuery -> Fay ()) -> Double -> Element -> Fay Bool
-addActive action _ element =
+--  where
+--      deactivateNavSlide obj = removeClass navSlideClass obj >> return ()
+addActive :: (JQuery -> Fay ())
+          -> (JQuery -> Fay ())
+          -> Double
+          -> Element
+          -> Fay Bool
+addActive actionWithActive actionWithObj _ element =
   selectElement element >>= click onClick >> return True
  where
    onClick _ = do
      -- "unmark" current active object
      activeObject <- selectClass activeClass
      removeClass activeClass activeObject
+     actionWithActive activeObject
      -- "mark" current active object
      obj <- selectElement element
      addClass "active" obj
      -- do some actions
-     action obj
+     actionWithObj obj
 
 -- Adds ".active" class to the given element based on the position
 --   ().
@@ -116,8 +122,8 @@ addParallaxEffect dir pos _ element = do
        Just newPosition -> do
          jshow Instantly object
          let setPosition = case dir of
-               Horizontal -> setPositionY
-               Vertical -> setPositionX
+               Vertical -> setPositionY
+               Horizontal -> setPositionX
          setPosition newPosition object
   return True
 
@@ -146,13 +152,15 @@ addScrollAnimation dir scrollSpeed _ element =
  where
   onClick _ = do
     bodyElem <- body
-    oldPosition <- getScrollTop bodyElem
+    oldPosition <- case dir of
+      Vertical -> getScrollTop bodyElem
+      Horizontal -> getScrollLeft bodyElem
     object <- selectElement element
     position <- dataAttrDouble scrollPositionData object
     let duration = abs (oldPosition - position) * scrollSpeed
         scrollTo = case dir of
-          Horizontal -> animateScrollTop
-          Vertical -> animateScrollLeft
+          Vertical -> animateScrollTop
+          Horizontal -> animateScrollLeft
     scrollTo position duration bodyElem
 
 -- Adds a hover effect for given element according to the given enter- and

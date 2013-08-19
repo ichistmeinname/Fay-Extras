@@ -53,6 +53,9 @@ setPositionY = ffi "%2.css(\"top\", %1)"
 setPositionX :: Double -> JQuery -> Fay ()
 setPositionX = ffi "%2.css(\"left\", %1)"
 
+animateLeft :: String -> Double -> JQuery -> Fay ()
+animateLeft = ffi "%3.animate({'left': %1}, %2)"
+
 animateMarginLeft :: String -> Double -> JQuery -> Fay ()
 animateMarginLeft = ffi "%3.animate({'marginLeft': %1}, %2)"
 
@@ -77,10 +80,22 @@ turnOffHover object = do
   unbind "mouseleave" object
 
 triggerHover :: JQuery -> Fay ()
-triggerHover = ffi "%1['trigger']('scroll')"
+triggerHover = ffi "%1['trigger']('hover')"
+
+triggerMouseLeave :: JQuery -> Fay ()
+triggerMouseLeave = ffi "%1['trigger']('mouseleave')"
+
+fadeInE :: Double -> (() -> Fay JQuery) -> JQuery -> Fay JQuery
+fadeInE = ffi "%3.fadeIn(%1, %2)"
+
+fadeOutE :: Double -> (() -> Fay JQuery) -> JQuery -> Fay JQuery
+fadeOutE = ffi "%3.fadeOut(%1, %2)"
 
 windowWidth :: JQuery -> Fay Double
 windowWidth = ffi "%1.width()"
+
+setTimeout :: Fay () -> Double -> Fay ()
+setTimeout = ffi "setTimeout( %1, %2 )";
 
 setLocation :: String -> Fay ()
 setLocation = ffi "window.location = %1"
