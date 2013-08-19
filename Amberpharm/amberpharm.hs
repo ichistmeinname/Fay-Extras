@@ -3,7 +3,8 @@ module Amberpharm.Amberpharm where
 import Prelude
 import JQuery
 import FFIExtras
-import FayExtras (selectClass, addScrollAnimation, ScrollDir(..), addActive)
+import FayExtras (selectClass, addScrollAnimation, ScrollDir(..), addActive
+                 , addHover )
 import FayDesign (addChangeImageOnHover)
 
 main :: Fay ()
@@ -12,14 +13,29 @@ main = documentReady onReady document
 onReady :: Event -> Fay ()
 onReady _ = do
   navigationElements <- selectClass navItemClass
-  each (addChangeImageOnHover (Just navigationPrefix)) navigationElements
-  each (addActive reactivateHover changeImageToActive) navigationElements
+  -- each (addChangeImageOnHover (Just navigationPrefix)) navigationElements
+  -- each (addActive reactivateHover changeImageToActive) navigationElements
   select slideshowId >>= addSlideshow fadeDuration
+  -- selectClass "kreis" >>= each addProductHover
   each addScrollNavigation navigationElements
   return ()
  where
-  scrollSpeed = 0.5    -- secs
-  fadeDuration = 5000  -- millisecs
+  fadeDuration = 6000  -- millisecs
+
+addProductHover _ element =
+  selectElement element >>= \obj -> addHover obj enter leave
+
+enter obj _ = do
+  fadeOutE 500 (\_ -> return obj) obj
+  setBackgroundImage ("Produkte/Kreis_aktiv.png") obj
+  fadeInE 1000 (\_ -> return obj) obj
+  return ()
+
+leave obj _ = do
+  fadeOutE 500 (\_ -> return obj) obj
+  setBackgroundImage ("Produkte/Kreis_ruhe.png") obj
+  fadeInE 1000 (\_ -> return obj) obj
+  return ()
 
 addScrollNavigation i element =
   selectElement element >>= click onClick >> return True
@@ -32,7 +48,7 @@ addScrollNavigation i element =
     newNumber <- dataAttrDouble "navnumber" newActive
     currentNumber <- dataAttrDouble "navnumber" currentActive
     let moveValue = show (i * (-100.0)) ++ "%"
-        duration  = abs (currentNumber - newNumber) * 1000
+        duration  = abs (currentNumber - newNumber) * 500
     putStrLn (show duration)
     addClass "active-nav" newActive
     animateLeft moveValue duration obj
@@ -58,20 +74,20 @@ addSlideshow duration obj = do
   setTimeout (nextImage 1.0 startObj) duration
   return ()
 
--- | Turn on hover for navigation elements after beeing active
-reactivateHover :: JQuery -> Fay ()
-reactivateHover obj = do
-  each (addChangeImageOnHover (Just navigationPrefix)) obj
-  triggerMouseLeave obj
-  return ()
+-- -- | Turn on hover for navigation elements after beeing active
+-- reactivateHover :: JQuery -> Fay ()
+-- reactivateHover obj = do
+--   each (addChangeImageOnHover (Just navigationPrefix)) obj
+--   triggerMouseLeave obj
+--   return ()
 
--- | Change navigation image to _active and turn off hover
-changeImageToActive :: JQuery -> Fay ()
-changeImageToActive obj = do
-  activeImage <- dataAttr activeData obj
-  setBackgroundImage (navigationPrefix ++ activeImage) obj
-  turnOffHover obj
-  return ()
+-- -- | Change navigation image to _active and turn off hover
+-- changeImageToActive :: JQuery -> Fay ()
+-- changeImageToActive obj = do
+--   activeImage <- dataAttr activeData obj
+--   setBackgroundImage (navigationPrefix ++ activeImage) obj
+--   turnOffHover obj
+--   return ()
 
 firstSlideClass = "first-slide"
 slideshowId = "#slideshow"
