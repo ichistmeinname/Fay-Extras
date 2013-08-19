@@ -1,0 +1,242 @@
+body {
+    overflow: hidden;
+    background-color: white;
+    background-repeat: repeat;
+    background-position: 50%;
+    height: 100%;
+    width: 100%;
+    min-width: 900px;
+    background-image: linear-gradient(bottom, rgb(114,111,135) 0%, rgb(186,177,194) 25%, rgb(255,255,255) 50%);
+    background-image: -o-linear-gradient(bottom, rgb(114,111,135) 0%, rgb(186,177,194) 25%, rgb(255,255,255) 50%);
+    background-image: -moz-linear-gradient(bottom, rgb(114,111,135) 0%, rgb(186,177,194) 25%, rgb(255,255,255) 50%);
+    background-image: -webkit-linear-gradient(bottom, rgb(114,111,135) 0%, rgb(186,177,194) 25%, rgb(255,255,255) 50%);
+    background-image: -ms-linear-gradient(bottom, rgb(114,111,135) 0%, rgb(186,177,194) 25%, rgb(255,255,255) 50%);
+    background-image: -webkit-gradient(
+	linear,
+	left bottom,
+	left top,
+	color-stop(0, rgb(114,111,135)),
+	color-stop(0.25, rgb(186,177,194)),
+        color-stop(0.50, rgb(240,240,240)),
+	color-stop(0.60, rgb(255,255,255)));
+}
+
+#logo {
+    background-image: url('Amberpharm-Logo.png');
+    background-repeat: no-repeat;
+    background-size: 150px;
+    width: 150px;
+    height: 180px;
+    margin-left: auto;
+    margin-right: auto;
+} 
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Source Sans Pro Light'), local('SourceSansPro-Light'), url(http://themes.googleusercontent.com/static/fonts/sourcesanspro/v5/toadOcfmlt9b38dHJxOBGMVNtom4QlEDNJaqqqzqdSs.woff) format('woff');
+}
+
+#content {
+    position: relative;
+    width: 500%;
+    height: 100%;
+    /* left: -5060px; */
+    /* transition: left 2s ease-out; */
+    /* -webkit-transition: left 1s ease-out; */
+    /* -moz-transition: left 2s ease-out; */
+    /* -ms-transition: left 2s ease-out; */
+    /* -o-transition: left 2s ease-out; */
+}
+
+
+#home-title {
+    width: 900px;
+    font-family: 'Source Sans Pro';
+    font-size: 30pt;
+    text-align: center;
+    color: #9C9C9C;
+    margin-top: 75px;
+    left: 10%;
+    margin-left: -450px;
+    position: relative;
+}
+
+#home-frame {
+    position: absolute;
+    background-image: url('Startseite/Slideshow_Rahmen.png');
+    background-size: 900px;
+    width: 900px;
+    left: 10%;
+    margin-left: -450px;
+    height: 260px;
+    margin-top: 10px;
+    z-index: 20;
+    /* display: inline; */
+}
+
+.slide {
+    background-size: 899px;
+    width: 899px;
+    height: 260px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.slide {
+    /* margin-top: 200px; */
+    position: absolute;
+    display: none;
+    /* opacity: 0; */
+}
+
+.first-slide {
+    display: inline;
+}
+
+
+#about-frame {
+    position: absolute;
+    background-image: url('Wir_ueber_uns/Wir-ueber-uns_Textrahmen.png');
+    background-size: 900px;
+    width: 900px;
+    height: 330px;
+    left: 30%;
+    margin-left: -450px;
+    z-index: 21;
+}
+
+#about-text, #about-title {
+    position: relative;
+    left: 5%;
+    width: 90%;
+    font-family: 'Source Sans Pro';
+}
+
+#about-title {
+    top: 7.5%;
+    color: #9C9C9C;
+    font-size: 30pt;
+    text-align: center;
+}
+
+#about-text {
+    top: 10%;
+    color: #7C7C7C;
+    font-size: 12pt;
+    text-align: left;
+}
+
+#impressum {
+    position: absolute;
+    width: 900px;
+    height: 330px;
+    left: 90%;
+    margin-left: -450px;
+}
+
+#impressum-info p {
+    margin: 0;
+}
+
+#impressum-info, #impressum-text {
+    height: 100%;
+    position: absolute;
+    font-family: 'Source Sans Pro';
+    color: #7C7C7C;
+    font-size: 15pt;
+    text-align: left;
+}
+
+#impressum-text {
+    left: 35%;
+}
+
+#nav {
+    position: fixed;
+    z-index: 2000;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#nav ul {
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#nav-line {
+    background-image: url('Navigation/1_Navigation-Linie.png');
+    background-repeat: no-repeat;
+    background-size: 900px;
+    width: 900px;
+    height: 17px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -40px;
+}
+
+#nav ul {
+    list-style: none;
+}
+
+#nav li {
+    display: inline;
+}
+
+.nav-item {
+    background-repeat: no-repeat;
+    height: 54px;
+    width: 170px;
+    display: inline-block;
+}
+
+#nav-item1 {
+    background-image: url('Navigation/Home/Home_ruhe.png');
+    background-size: 75px;
+    width: 75px;
+    margin-right: 15px;
+}
+
+#nav-item2 {
+    background-image: url('Navigation/Wirueberuns/Wirueberuns_ruhe.png');
+    background-size: 165px;
+    width: 165px;
+    margin-right: 15px;
+}
+
+#nav-item3 {
+    background-image: url('Navigation/Produkte/Produkte_ruhe.png');
+    background-size: 105px;
+    width: 105px;
+    margin-right: 15px;
+}
+
+#nav-item4 {
+    background-image: url('Navigation/Kontakt/Kontakt_ruhe.png');
+    background-size: 95px;
+    width: 95px;
+    margin-right: 15px;
+}
+
+#nav-item5 {
+    background-image: url('Navigation/Impressum/Impressum_ruhe.png');
+    background-size: 140px;
+    width: 140px;
+    margin-right: 15px;
+}
+
+#preload {
+    display: none;
+}
+
+#preload img {
+    height: 0;
+    width: 0;
+    border: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -30;
+}
