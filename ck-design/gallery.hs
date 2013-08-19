@@ -1,12 +1,13 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 
-module Gallery where
+module Fay.CKDesign.Gallery where
 
 import Prelude
 import FFI
 import JQuery hiding ( not, filter )
 import ConstantsAndHelpers
 import FFIExtras
+import FayDesign
 
 main = do
   documentReady onReady document
@@ -15,35 +16,23 @@ onReady :: Event -> Fay ()
 onReady _ = do
   win <- selectElement window
   width <- windowWidth win
-  navigationElements <- select navItemClass
-  each addChangeMarginHover navigationElements
-  linkElements <- select ".link"
+  navigationElements <- selectClass navItemClass
+  each addNavigationSlider navigationElements
+  linkElements <- selectClass linkClass
   each addHref linkElements
   each addChangeCategory navigationElements
   initiateGallery
   return ()
-
-addHref :: Double -> Element -> Fay Bool
-addHref _ element = do
-  object <- selectElement element
-  href <- dataAttr "href" object
-  clickTag <- dataAttr "click" object
-  clickObject <- select clickTag
-  click (onClick href) clickObject
-  return True
- where
-   onClick href _ = do
-     setLocation href
 
 initiateGallery = do
   query <- searchQuery
   if null query
    then choseDefaultCategory
    else do
-     let currentCategory = dropWhile (isParam) query
+     let currentCategory = tail $ dropWhile (isParam) query
      if null currentCategory
       then choseDefaultCategory
-      else preloadGalleryImage True 1.0 (tail currentCategory)
+      else preloadGalleryImage currentCategory
  where
    isParam char = not (char == '=')
    choseDefaultCategory = do
@@ -71,8 +60,6 @@ preloadGalleryImage init index name =
         preloadGallery categories
         setupGallery name
       else return ()
-
-galleryCategories = ["ci","etc","editorial","multimedia"]
 
 deleteFromList elem [] = []
 deleteFromList elem (x:xs) | x == elem = deleteFromList elem xs
@@ -163,19 +150,14 @@ addArrowNavigation dir index element = do
  where
    arrowClick page obj = click (onThumbnailClick dir page element) obj
                          >> return ()
-
-
-outOfLeftBounds :: Double -> Bool
-outOfLeftBounds index = index <= 0
-
-outOfRightBounds :: Double -> Double -> Bool
-outOfRightBounds index max = index >= max
+  outOfLeftBounds  = (<=) 0
+  outOfRightBounds = (>=)
 
 onThumbnailClick :: String -> Double -> Element -> Event -> Fay ()
 onThumbnailClick dir index element _ = do
-  setGalleryPicture (path dir name ".jpg")
-  captionAndDescription (path dir name ".html")
-  setGalleryPictureHref (path dir name "-link.html")
+  setGalleryPicture (path dir name)
+  captionAndDescription name
+  setGalleryPictureHref (path dir name)
   updateArrowNavigation dir index
   return ()
  where name = show (index + 1)
@@ -185,13 +167,6 @@ updateArrowNavigation dir index = do
   setDataAttr "index" (show index) object
   arrowElements <- select ".arrow"
   each (addArrowNavigation dir) arrowElements
-
-galleryPrefix :: String
-galleryPrefix     = "gallery/"
-
-path :: String
-path dir name suffix =
-  galleryPrefix ++ dir ++ "/" ++ name ++ suffix
 
 setThumbnailPicture pngPath object = do
   setBackgroundImage pngURL object
@@ -209,8 +184,8 @@ setGalleryPictureHref htmlPath =
      remove object
      return ()
 
-captionAndDescription htmlPath = putStrLn htmlPath >>
-  get htmlPath (doneCallback) (emptyCallback)
+captionAndDescription categoryName = do
+  get (categoryName ++ ".html") doneCallback emptyCallback
  where
    doneCallback answer = do
      object <- select textID
@@ -221,63 +196,3 @@ setGalleryPicture jpgPath = do
   object <- select "#gallery-picture"
   setBackgroundImage jpgURL object
  where jpgURL = toURL jpgPath
-
-addChangeMarginHover i element = do
-  addHover i element (addNavSlide) (removeNavSlide)
- where addNavSlide object _    =
-         addClass navSlideClass object >> return ()
-       removeNavSlide object _ =
-         removeClass navSlideClass object >> return ()
-
-preloadImage :: String -> String -> String -> Fay ()
-preloadImage prefix pictureName suffix = do
-  divPreload <- select preloadId
-  prependString imgSrc divPreload
- where
-  imgSrc = "<img src='"
-         ++ mkImage prefix False suffix pictureName
-         ++ "' alt='preload'/>"
-
-turnOffHover :: JQuery -> Fay ()
-turnOffHover object = do
-  unbind "mouseenter" object
-  unbind "mouseleave" object
-
-turnOffClick :: JQuery -> Fay ()
-turnOffClick = unbind "click"
-
-unbind :: String -> JQuery -> Fay ()
-unbind = ffi "%2.unbind(%1)"
-
--- change image on hover
-addHover :: Double -> Element -> (JQuery -> String -> Event -> Fay ())
-         -> (JQuery -> String -> Event -> Fay ()) -> Fay Bool
-addHover _ element enterFunction leaveFunction = do
-  object <- selectElement element
-  mouseEnterName <- dataAttr mouseEnterData object
-  mouseLeaveName <- dataAttr mouseLeaveData object
-  if (null mouseEnterName) then return ()
-   else preloadImage portfolioPrefix mouseEnterName ".png"
-  hoverName <- dataAttr hoverObjectData object
-  hoverObj <- select hoverName
-  hoverOverOut (enterFunction object mouseEnterName)
-               (leaveFunction object mouseLeaveName)
-               hoverObj
-  return True
-
-addBubbleEffect :: Double -> Element -> Fay Bool
-addBubbleEffect _ element = do
-  bubbleObject <- selectElement element
-  hoverObject <- hoverElement bubbleObject
-  hoverClassName <- dataAttr hoverClassData bubbleObject
-  hoverOverOut (onEvent addClass hoverClassName)
-               (onEvent removeClass hoverClassName)
-               hoverObject
-  return True
- where onEvent updateClass hoverClassName _ = do
-         bubbleObject <- selectElement element
-         updateClass hoverClassName bubbleObject
-         return ()
-
-hoverElement :: JQuery -> Fay JQuery
-hoverElement object = dataAttr hoverObjectData object >>= select
