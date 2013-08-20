@@ -178,11 +178,11 @@ addScrollAnimation dir scrollSpeed _ element =
 --    .nav-slide { margin-left: 0; }
 -- Fay Code
 --    addChangeMarginHover i element = do
---      addHover i element (addNavSlide) (removeNavSlide)
+--      addHover element (addNavSlide) (removeNavSlide)
 --     where
---      addNavSlide object _  _  =
+--      addNavSlide object _  =
 --        addClass "nav-slide" object >> return ()
---      removeNavSlide object _ _ = do
+--      removeNavSlide object _ = do
 --        hasActiveClass <- hasClass ".active" object
 --        if hasActiveClass then return ()
 --        else removeClass "nav-slide" object >> return ()

@@ -16,26 +16,33 @@ onReady _ = do
   -- each (addChangeImageOnHover (Just navigationPrefix)) navigationElements
   -- each (addActive reactivateHover changeImageToActive) navigationElements
   select slideshowId >>= addSlideshow fadeDuration
-  -- selectClass "kreis" >>= each addProductHover
+  selectClass "kreis" >>= each addProductHover
   each addScrollNavigation navigationElements
   return ()
  where
   fadeDuration = 6000  -- millisecs
 
-addProductHover _ element =
-  selectElement element >>= \obj -> addHover obj enter leave
-
-enter obj _ = do
-  fadeOutE 500 (\_ -> return obj) obj
-  setBackgroundImage ("Produkte/Kreis_aktiv.png") obj
-  fadeInE 1000 (\_ -> return obj) obj
-  return ()
-
-leave obj _ = do
-  fadeOutE 500 (\_ -> return obj) obj
-  setBackgroundImage ("Produkte/Kreis_ruhe.png") obj
-  fadeInE 1000 (\_ -> return obj) obj
-  return ()
+addProductHover _ element = do
+  obj <- selectElement element
+  addHover obj enter leave
+ where
+  enter obj _ = do
+    dummyId <- dataAttr "dummy" obj
+    dummyObj <- select dummyId
+    productId <- dataAttr "product" obj
+    select productId >>= addClass "product-hover"
+    fadeOutE 500 (\_ -> return obj) dummyObj
+    -- fadeInE 1000 (\_ -> return dummyObj) obj
+    return ()
+  leave obj _ = do
+    dummyId <- dataAttr "dummy" obj
+    dummyObj <- select dummyId
+    productId <- dataAttr "product" obj
+    select productId >>= removeClass "product-hover"
+    fadeInE 500 (\_ -> return dummyObj) dummyObj
+    -- setBackgroundImage ("Produkte/Kreis_ruhe.png") obj
+    -- fadeInE 1000 (\_ -> return obj) dummyObj
+    return ()
 
 addScrollNavigation i element =
   selectElement element >>= click onClick >> return True
@@ -49,7 +56,6 @@ addScrollNavigation i element =
     currentNumber <- dataAttrDouble "navnumber" currentActive
     let moveValue = show (i * (-100.0)) ++ "%"
         duration  = abs (currentNumber - newNumber) * 500
-    putStrLn (show duration)
     addClass "active-nav" newActive
     animateLeft moveValue duration obj
     return ()
