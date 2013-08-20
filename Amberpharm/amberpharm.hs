@@ -12,6 +12,7 @@ main = documentReady onReady document
 
 onReady :: Event -> Fay ()
 onReady _ = do
+  body >>= animateScrollTop 0 500
   navigationElements <- selectClass navItemClass
   -- each (addChangeImageOnHover (Just navigationPrefix)) navigationElements
   -- each (addActive reactivateHover changeImageToActive) navigationElements
@@ -56,6 +57,8 @@ addScrollNavigation i element =
   selectElement element >>= click onClick >> return True
  where
   onClick _ = do
+    body >>= animateScrollTop 0 500
+    body >>= triggerScroll
     selectClass "product-frame" >>=
       each (\_ e -> selectElement e >>= hide Instantly >> return True)
     body >>= removeClass "enlargeBody"
