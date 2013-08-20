@@ -17,10 +17,21 @@ onReady _ = do
   -- each (addActive reactivateHover changeImageToActive) navigationElements
   select slideshowId >>= addSlideshow fadeDuration
   selectClass "kreis" >>= each addProductHover
+  selectClass "product" >>= each addProductNavigation
   each addScrollNavigation navigationElements
   return ()
  where
   fadeDuration = 6000  -- millisecs
+
+addProductNavigation _ element = do
+  selectElement element >>= click onClick >> return True
+ where
+  onClick _ = do
+    productId <- selectElement element >>= dataAttr "product"
+    select productId >>= unhide
+    select "#product-selection" >>= hide Instantly
+    body >>= addClass "enlargeBody"
+    return ()
 
 addProductHover _ element = do
   obj <- selectElement element
@@ -32,7 +43,6 @@ addProductHover _ element = do
     productId <- dataAttr "product" obj
     select productId >>= addClass "product-hover"
     fadeOutE 500 (\_ -> return obj) dummyObj
-    -- fadeInE 1000 (\_ -> return dummyObj) obj
     return ()
   leave obj _ = do
     dummyId <- dataAttr "dummy" obj
@@ -40,14 +50,16 @@ addProductHover _ element = do
     productId <- dataAttr "product" obj
     select productId >>= removeClass "product-hover"
     fadeInE 500 (\_ -> return dummyObj) dummyObj
-    -- setBackgroundImage ("Produkte/Kreis_ruhe.png") obj
-    -- fadeInE 1000 (\_ -> return obj) dummyObj
     return ()
 
 addScrollNavigation i element =
   selectElement element >>= click onClick >> return True
  where
   onClick _ = do
+    selectClass "product-frame" >>=
+      each (\_ e -> selectElement e >>= hide Instantly >> return True)
+    body >>= removeClass "enlargeBody"
+    select "#product-selection" >>= unhide
     obj <- select "#content"
     currentActive <- selectClass "active-nav"
     removeClass "active-nav" currentActive

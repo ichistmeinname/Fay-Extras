@@ -1,4 +1,4 @@
-body, html {
+body {
     overflow-x: hidden;
     overflow-y: hidden;
     background-color: white;
@@ -58,8 +58,6 @@ body, html {
 
 #home-frame {
     position: absolute;
-    background-image: url('Startseite/Slideshow_Rahmen.png');
-    background-size: 900px;
     width: 900px;
     left: 10%;
     margin-left: -450px;
@@ -69,19 +67,26 @@ body, html {
     /* display: inline; */
 }
 
-.slide {
-    background-size: 899px;
-    width: 899px;
-    height: 260px;
-    margin-left: auto;
-    margin-right: auto;
+#slideshow {
+    left: 50%;
+    margin-left: -450px;
+    position: absolute;
+    background-image: url('Startseite/Slideshow_Rahmen.png');
+    background-size: 900px;
+    width: 900px;
+    height: 250px;
+
 }
 
 .slide {
-    /* margin-top: 200px; */
+    left: 1.4%;
+    top: 4.9%;
+    width: 876px;
+    height: 226px;
+    /* margin-left: auto; */
+    /* margin-right: auto; */
     position: absolute;
     display: none;
-    /* opacity: 0; */
 }
 
 .first-slide {
@@ -122,6 +127,12 @@ body, html {
 }
 
 #products {
+    width: 1000px;
+    left: 50%;
+    margin-left: -500px;
+}
+
+#product-selection {
     position: absolute;
     width: 1000px;
     left: 50%;
@@ -155,6 +166,10 @@ body, html {
 
 #kreis3 {
     left: 67.5%;
+}
+
+.enlargeBody {
+    overflow-y: visible !important;
 }
 
 .product {
@@ -230,6 +245,7 @@ body, html {
     font-size: 12pt;
     font-family: 'Source Sans Pro';
     color: #323232;
+    padding-bottom: 50px;
 }
 
 #auster {
@@ -240,30 +256,59 @@ body, html {
     background-image: url('Produkte/Salz.png');
 }
 
-.product-image, product-image {
-    left: 5%;
-    position: absolute;
-    display: block;
-}
-
-#product-image1 {
-    margin-top: -500px;
-}
-
-#product-image2 {
-    margin-top: -250px;
-}
-
-.image-alge1 {
-    background-image: url('Produkte/Unterseiten/Elemente/Alge/alge_bild.png');
+.product-image {
+    margin-left: 5%;
     background-size: 300px;
+}
+
+#product1, #product2, #product3 {
+    display: inline-block;
+}
+
+#image-alge1 {
+    background-image: url('Produkte/Unterseiten/Elemente/Alge/alge_bild.png');
+    margin-top: -585px;
+    margin-bottom: 120px;
     width: 300px;
     height: 200px;
 }
 
-.image-alge2 {
+#image-alge2 {
     background-image: url('Produkte/Unterseiten/Elemente/Alge/alge_packshot.png');
-    background-size: 300px;
+    margin-top: 25px;
+    margin-bottom: 50px;
+    width: 300px;
+    height: 200px;
+}
+
+#image-auster1 {
+    background-image: url('Produkte/Unterseiten/Elemente/Auster/auster_bild.png');
+    margin-top: -425px;
+    margin-bottom: 25px;
+    width: 300px;
+    height: 200px;
+}
+
+#image-auster2 {
+    background-image: url('Produkte/Unterseiten/Elemente/Auster/auster_packshot.png');
+    margin-top: 25px;
+    margin-bottom: 50px;
+    width: 300px;
+    height: 420px;
+}
+
+#image-salz1 {
+    background-image: url('Produkte/Unterseiten/Elemente/Salz/salz_bild.png');
+    margin-top: -625px;
+    margin-bottom: 160px;
+    width: 300px;
+    height: 200px;
+}
+
+#image-salz2 {
+    background-image: url('Produkte/Unterseiten/Elemente/Salz/salz_packshot.png');
+    margin-top: 25px;
+    margin-bottom: 50px;
     width: 300px;
     height: 200px;
 }
@@ -281,16 +326,20 @@ body, html {
 }
 
 #impressum-info, #impressum-text {
-    height: 100%;
     position: absolute;
     font-family: 'Source Sans Pro';
-    color: #9f9a96;
     font-size: 15pt;
     text-align: left;
+    display: inline-block;
+    color: #323232;
 }
 
 #impressum-text {
     left: 35%;
+}
+
+#impressum-text p {
+    font-size: 10pt;
 }
 
 #nav {
