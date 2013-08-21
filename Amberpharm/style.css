@@ -8,7 +8,7 @@ body {
     /* height: 100%; */
     background-attachment: fixed;
     min-width: 900px;
-    min-height: 900px;
+    /* min-height: 900px; */
     background-image: linear-gradient(bottom, rgb(114,111,135) 0%, rgb(186,177,194) 25%, rgb(255,255,255) 50%);
     background-image: -o-linear-gradient(bottom, rgb(114,111,135) 0%, rgb(186,177,194) 25%, rgb(255,255,255) 50%);
     background-image: -moz-linear-gradient(bottom, rgb(114,111,135) 0%, rgb(186,177,194) 25%, rgb(255,255,255) 50%);
@@ -139,11 +139,11 @@ body {
 }
 
 #products {
-    width: 1000px;
-    left: 50%;
-    margin-left: -500px;
-    position: absolute;
-    height: 750px;
+    /* width: 1000px; */
+    /* left: 50%; */
+    /* margin-left: -500px; */
+    /* position: absolute; */
+    /* height: 750px; */
 }
 
 #product-selection {
@@ -218,6 +218,7 @@ body {
     border-color: grey;
     /* border-collapse: collapse; */
     box-shadow: 0px 0px 5px 5px grey;
+    box-shadow-blend-mode: normal;
 }
 
 #alge {
@@ -230,12 +231,11 @@ body {
     left: 50%;
     margin-left: -450px;
     width: 900px;
-    height: 40%;
+    /* height: 40%; */
     position: absolute;
     background-color: rgba(255,255,255,0.4);
     display: none;
-    box-shadow: 0px 0px 10px 1px lightgrey;
-    box-shadow-opacity: 0.5;
+    box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.2);
     z-index: 250;
     overflow-y: scroll;
 }
@@ -449,6 +449,82 @@ body {
 
 #nav-item5 {
     width: 105px;
+}
+
+.bubble11 {
+    background-image: url('Bubbles/Bubbles/bubble1_1.png');
+}
+
+.bubble12 {
+    background-image: url('Bubbles/Bubbles/bubble1_2.png');
+}
+
+.bubble21 {
+    background-image: url('Bubbles/Bubbles/bubble2_1.png');
+}
+
+.bubble22 {
+    background-image: url('Bubbles/Bubbles/bubble1_2.png');
+}
+
+.bubble31 {
+    background-image: url('Bubbles/Bubbles/bubble3_1.png');
+}
+
+.bubble32 {
+    background-image: url('Bubbles/Bubbles/bubble3_2.png');
+}
+
+.bubble41 {
+    background-image: url('Bubbles/Bubbles/bubble4_1.png');
+}
+
+.bubble42 {
+    background-image: url('Bubbles/Bubbles/bubble4_2.png');
+}
+
+.bubble51 {
+    background-image: url('Bubbles/Bubbles/bubble5_1.png');
+}
+
+.bubble52 {
+    background-image: url('Bubbles/Bubbles/bubble5_2.png');
+}
+
+.bubble61 {
+    background-image: url('Bubbles/Bubbles/bubble6_1.png');
+}
+
+.bubble62 {
+    background-image: url('Bubbles/Bubbles/bubble6_2.png');
+}
+
+.bubble71 {
+    background-image: url('Bubbles/Bubbles/bubble7_1.png');
+}
+
+.bubble72 {
+    background-image: url('Bubbles/Bubbles/bubble7_2.png');
+}
+
+#home311 {
+    z-index: 1000;
+    background-size: 150px;
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: 10%;
+    left: 10%;
+}
+#home321{
+}
+#home322{
+}
+#home611{
+}
+#home621{
+}
+#home622{
 }
 
 #preload {

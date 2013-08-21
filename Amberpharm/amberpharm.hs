@@ -4,7 +4,7 @@ import Prelude
 import JQuery
 import FFIExtras
 import FayExtras (selectClass, addScrollAnimation, ScrollDir(..), addActive
-                 , addHover )
+                 , addHover, addParallaxEffect )
 import FayDesign (addChangeImageOnHover)
 
 main :: Fay ()
@@ -13,6 +13,8 @@ main = documentReady onReady document
 onReady :: Event -> Fay ()
 onReady _ = do
   body >>= animateScrollTop 0 100
+  selectElement window >>= scroll parallaxBubbles
+  -- select "#content" >>= bind "fakeScroll" parallaxBubbles
   navigationElements <- selectClass navItemClass
   -- each (addChangeImageOnHover (Just navigationPrefix)) navigationElements
   -- each (addActive reactivateHover changeImageToActive) navigationElements
@@ -24,16 +26,31 @@ onReady _ = do
  where
   fadeDuration = 6000  -- millisecs
 
+parallaxBubbles _ = do
+  pos <- select "#content" >>= getLeft
+  putStrLn (show pos)
+  movableElements <- selectClass "movable"
+  each (addParallaxEffect Vertical pos) movableElements
+  return ()
+
 addProductNavigation _ element = do
   selectElement element >>= click onClick >> return True
  where
   onClick _ = do
+    -- hide last selected product
+    selectClass "active-product" >>= hide Instantly
+                                 >>= removeClass "active-product"
+    -- show new selected product
     productId <- selectElement element >>= dataAttr "product"
-    select productId >>= unhide
+    select productId >>= unhide >>= addClass "active-product"
+    -- calculate scroll position and product-frame height
+    height <- body >>= getHeight
+    select "#products" >>= setCss "height" (show $ height * (2/3))
+    select "#product-frame" >>= setCss "height" (show (height / 2))
+    -- show product-frame
     select "#product-frame" >>= setCss "display" "block"
-    -- select "#product-selection" >>= hide Instantly
-    -- body >>= addClass "enlargeBody"
-    body >>= animateScrollTop 525 500
+    -- scroll to product-frame
+    body >>= animateScrollTop height 750
     return ()
 
 addProductHover _ element = do
@@ -60,11 +77,12 @@ addScrollNavigation i element =
  where
   onClick _ = do
     body >>= animateScrollTop 0 500
-    -- body >>= addClass "enlargeBody"
-    -- selectClass "product-frame" >>=
-      -- each (\_ e -> selectElement e >>= hide Instantly >> return True)
-    -- select "#product-frame" >>= hide Instantly
-    -- select "#product-selection" >>= unhide
+    -- setTimeout (do
+    -- -- body >>= addClass "enlargeBody"
+    --   selectClass "product-frame" >>=
+    --     each (\_ e -> selectElement e >>= hide Instantly >> return True)
+    --   select "#product-frame" >>= hide Instantly
+    --   return ()) 500
     obj <- select "#content"
     currentActive <- selectClass "active-nav"
     removeClass "active-nav" currentActive
@@ -75,7 +93,8 @@ addScrollNavigation i element =
         duration  = abs (currentNumber - newNumber) * 500
     addClass "active-nav" newActive
     animateLeft moveValue duration obj
-    return ()
+    selectElement window >>= triggerScroll
+    trigger "fakeScroll" obj
 
 addSlideshow :: Double -> JQuery -> Fay ()
 addSlideshow duration obj = do
