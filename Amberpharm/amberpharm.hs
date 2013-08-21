@@ -12,7 +12,7 @@ main = documentReady onReady document
 
 onReady :: Event -> Fay ()
 onReady _ = do
-  body >>= animateScrollTop 0 500
+  body >>= animateScrollTop 0 100
   navigationElements <- selectClass navItemClass
   -- each (addChangeImageOnHover (Just navigationPrefix)) navigationElements
   -- each (addActive reactivateHover changeImageToActive) navigationElements
@@ -30,8 +30,10 @@ addProductNavigation _ element = do
   onClick _ = do
     productId <- selectElement element >>= dataAttr "product"
     select productId >>= unhide
-    select "#product-selection" >>= hide Instantly
-    body >>= addClass "enlargeBody"
+    select "#product-frame" >>= setCss "display" "block"
+    -- select "#product-selection" >>= hide Instantly
+    -- body >>= addClass "enlargeBody"
+    body >>= animateScrollTop 525 500
     return ()
 
 addProductHover _ element = do
@@ -58,11 +60,11 @@ addScrollNavigation i element =
  where
   onClick _ = do
     body >>= animateScrollTop 0 500
-    body >>= triggerScroll
-    selectClass "product-frame" >>=
-      each (\_ e -> selectElement e >>= hide Instantly >> return True)
-    body >>= removeClass "enlargeBody"
-    select "#product-selection" >>= unhide
+    -- body >>= addClass "enlargeBody"
+    -- selectClass "product-frame" >>=
+      -- each (\_ e -> selectElement e >>= hide Instantly >> return True)
+    -- select "#product-frame" >>= hide Instantly
+    -- select "#product-selection" >>= unhide
     obj <- select "#content"
     currentActive <- selectClass "active-nav"
     removeClass "active-nav" currentActive

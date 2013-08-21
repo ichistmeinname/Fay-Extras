@@ -8,19 +8,30 @@ body {
     /* height: 100%; */
     background-attachment: fixed;
     min-width: 900px;
+    min-height: 900px;
     background-image: linear-gradient(bottom, rgb(114,111,135) 0%, rgb(186,177,194) 25%, rgb(255,255,255) 50%);
     background-image: -o-linear-gradient(bottom, rgb(114,111,135) 0%, rgb(186,177,194) 25%, rgb(255,255,255) 50%);
     background-image: -moz-linear-gradient(bottom, rgb(114,111,135) 0%, rgb(186,177,194) 25%, rgb(255,255,255) 50%);
-    background-image: -webkit-linear-gradient(bottom, rgb(114,111,135) 0%, rgb(186,177,194) 25%, rgb(255,255,255) 50%);
+    background-image: -webkit-linear-gradient(bottom, rgb(114,111,135) 80px, rgb(186,177,194) 25%, rgb(255,255,255) 50%);
     background-image: -ms-linear-gradient(bottom, rgb(114,111,135) 0%, rgb(186,177,194) 25%, rgb(255,255,255) 50%);
     background-image: -webkit-gradient(
 	linear,
 	left bottom,
 	left top,
-	color-stop(0, rgb(114,111,135)),
-	color-stop(0.35, rgb(186,177,194)),
-        color-stop(0.60, rgb(240,240,240)),
-	color-stop(0.70, rgb(255,255,255)));
+	color-stop(0px, rgb(114,111,135)),
+	color-stop(251px, rgb(186,177,194)),
+        color-stop(0.50, rgb(240,240,240)),
+	color-stop(90%, rgb(255,255,255)));
+}
+
+#fixed {
+    position: fixed;
+    width: 100%;
+    background-color: white;
+    z-index: 1000;
+    left: 0px;
+    right: 0px;
+    top: 0px;
 }
 
 #logo {
@@ -41,9 +52,9 @@ body {
 }
 
 #content {
-    position: relative;
+    position: absolute;
     width: 500%;
-    height: 900px;
+    margin-top: 250px;
 }
 
 #home-title {
@@ -131,6 +142,8 @@ body {
     width: 1000px;
     left: 50%;
     margin-left: -500px;
+    position: absolute;
+    height: 750px;
 }
 
 #product-selection {
@@ -211,17 +224,20 @@ body {
     background-image: url('Produkte/Alge.png');
 }
 
-.product-frame {
-    margin-top: -25px;
+#product-frame {
+    margin-top: 400px;
+    margin-bottom: 50px;
     left: 50%;
     margin-left: -450px;
     width: 900px;
+    height: 40%;
     position: absolute;
     background-color: rgba(255,255,255,0.4);
     display: none;
     box-shadow: 0px 0px 10px 1px lightgrey;
     box-shadow-opacity: 0.5;
-    z-index: 100;
+    z-index: 250;
+    overflow-y: scroll;
 }
 
 .product-title {
@@ -230,6 +246,7 @@ body {
     font-size: 16pt;
     font-family: 'Source Sans Pro';
     color: #323232;
+    z-index: 300;
 }
 
 .product-text {
@@ -241,6 +258,7 @@ body {
     font-family: 'Source Sans Pro';
     color: #323232;
     padding-bottom: 50px;
+    z-index: 300;
 }
 
 #auster {
@@ -257,7 +275,8 @@ body {
 }
 
 #product1, #product2, #product3 {
-    display: inline-block;
+    z-index: 501;
+    display: none;
 }
 
 #image-alge1 {
