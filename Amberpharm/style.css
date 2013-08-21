@@ -401,7 +401,7 @@ body {
 
 .nav-item {
     display: inline-block;
-    cursor: default;
+    cursor: pointer;
 }
 
 .active-nav {
