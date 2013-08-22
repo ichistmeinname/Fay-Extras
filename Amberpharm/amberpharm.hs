@@ -14,7 +14,9 @@ onReady :: Event -> Fay ()
 onReady _ = do
   body >>= animateScrollTop 0 100
   -- activate home as current navigation item
-  select "#navv-item1" >>= addClass "active-nav"
+  select "#nav-item1" >>= addClass "active-nav"
+  -- change active navigation after submit contact form
+  select "#contact-button" >>= click onClick
   navigationElements <- selectClass navItemClass
   selectClass "movable" >>= each addStartValues
   selectClass "layer1" >>= addXValue (-1.4)
@@ -29,6 +31,13 @@ onReady _ = do
   return ()
  where
   fadeDuration = 6000  -- millisecs
+  onClick _ = do
+     putStrLn "click"
+     select "head" >>=
+       append "<style type='text/css'> #content { left:-300%; }</style>"
+     select "nav-item4" >>= addClass "active-nav"
+     putStrLn "change styles"
+     return ()
   addStartValues _ element = do
     object <- selectElement element
     startX <- cssDouble "left" object
@@ -52,8 +61,6 @@ addParallaxEffect navIndex duration _ element = do
   yPos <- dataAttrDouble "y" object
   startX <- dataAttrDouble "startx" object
   startY <- dataAttrDouble "starty" object
-  putStrLn (show xPos ++ "\n" ++ show yPos ++ "\n" ++ show navIndex)
-  putStrLn (show startX ++ "\n" ++ show startY)
   animateLeftTop (show ((xPos * navIndex) + startX))
                  (show ((yPos * navIndex) + startY))
                  (duration * 2)

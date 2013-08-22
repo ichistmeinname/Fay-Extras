@@ -1,36 +1,26 @@
 <?php
-  /* === Daten aus dem Formular auslesen und in Variablen speichern === */
+  function mail() {
   $name = $_POST['name'];
   $mail = $_POST['mail'];
   $subject = "Anfrage";
   $msg = $_POST['msg'];
+
+  $to = "admin@carinamitc.de";
+  $subject = "Kontaktformularnachricht " + $subject  + " " + $name;
  
-  /* === Empfängeradresse und Betreff === */
-  $to = 'admin@carinamitc.de';
-  $subject = "Kontaktformularnachricht | $subject | $name ";
- 
-  /* === Wenn Bedingung erfüllt, dann E-Mail abschicken - andernfalls Fehlermeldung ausgeben === */
     if ((!empty($name))&&(!empty($mail))&&(!empty($msg))) {
  
       mail($to, $subject, $msg, 'From:' . $email); //Mail versenden
  
-      ob_start(); // ensures anything dumped out will be caught
-
-      // clear out the output buffer
-      while (ob_get_status())  {
-        ob_end_clean();
-      }
-      
-      header("Location: http://carinamitc.de/Amberpharm/amberpharm.html");
+      //redirect("http://carinamitc.de/Amberpharm/amberpharm.html", 302);
     }
     else {
-      ob_start(); // ensures anything dumped out will be caught
-
-      // clear out the output buffer
-      while (ob_get_status())  {
-        ob_end_clean();
-      }
-      
-      header("Location: http://carinamitc.de/Amberpharm/amberpharm.html");
+      //redirect("http://carinamitc.de/Amberpharm/amberpharm.html", 302);
     }
+  }
+
+  function redirect($url, $statusCode = 303) {
+    header('Location: ' . $url, true, $statusCode);
+    die();
+  }
 ?>

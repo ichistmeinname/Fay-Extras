@@ -190,34 +190,7 @@ Damit unterscheiden wir uns von 80% aller anderen Hersteller auf dem
       <p>Mail: info(at)amberpharm.de</p>
     </div>
     <div id="contact-form">
-
-      <?php
-  function mail() {
-  $name = $_POST['name'];
-  $mail = $_POST['mail'];
-  $subject = "Anfrage";
-  $msg = $_POST['msg'];
-
-  $to = "admin@carinamitc.de";
-  $subject = "Kontaktformularnachricht " + $subject  + " " + $name;
- 
-    if ((!empty($name))&&(!empty($mail))&&(!empty($msg))) {
- 
-      mail($to, $subject, $msg, 'From:' . $email); //Mail versenden
- 
-      //redirect("http://carinamitc.de/Amberpharm/amberpharm.html", 302);
-    }
-    else {
-      //redirect("http://carinamitc.de/Amberpharm/amberpharm.html", 302);
-    }
-  }
-
-  function redirect($url, $statusCode = 303) {
-    header('Location: ' . $url, true, $statusCode);
-    die();
-  }
-?>
-      <form action="amberpharm.html" method="post"
+      <form action="amberpharm.php" method="post"
             enctype="application/x-www-form-urlencoded">
         <input id="contact-name" type="text" name="name" placeholder="Name">
         <input id="contact-mail" type="email" name="mail" placeholder="E-Mail">
