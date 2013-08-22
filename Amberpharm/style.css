@@ -346,6 +346,7 @@ body {
     top: 25%;
     display: block;
     width: 30%;
+    z-index:1000;
 }
 
 #contact-name, #contact-mail, #contact-msg {

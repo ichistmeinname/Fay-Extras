@@ -13,6 +13,8 @@ main = documentReady onReady document
 onReady :: Event -> Fay ()
 onReady _ = do
   body >>= animateScrollTop 0 100
+  -- activate home as current navigation item
+  select "#navv-item1" >>= addClass "active-nav"
   navigationElements <- selectClass navItemClass
   selectClass "movable" >>= each addStartValues
   selectClass "layer1" >>= addXValue (-1.4)
@@ -112,7 +114,7 @@ addScrollNavigation i element =
     newNumber <- dataAttrDouble "navnumber" newActive
     currentNumber <- dataAttrDouble "navnumber" currentActive
     let moveValue = show (i * (-100.0)) ++ "%"
-        duration  = abs (currentNumber - newNumber) * 500
+        duration  = abs (currentNumber - newNumber) * 1000
     addClass "active-nav" newActive
     select "#product-selection" >>= animateTop "0" 500
     height <- body >>= getHeight

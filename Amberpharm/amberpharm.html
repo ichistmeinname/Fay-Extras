@@ -190,13 +190,13 @@ Damit unterscheiden wir uns von 80% aller anderen Hersteller auf dem
       <p>Mail: info(at)amberpharm.de</p>
     </div>
     <div id="contact-form">
-      <!--form method="post" enctype="application/x-www-form-urlencoded">
-        <input id="contact-name" type="text" placeholder="Name">
-        <input id="contact-mail" type="email" placeholder="E-Mail">
-        <textarea id="contact-msg" placeholder="Nachricht"></textarea>
+      <form action="mail.php" method="post"
+            enctype="application/x-www-form-urlencoded">
+        <input id="contact-name" type="text" name="name" placeholder="Name">
+        <input id="contact-mail" type="email" name="mail" placeholder="E-Mail">
+        <textarea id="contact-msg" name="msg" placeholder="Nachricht"></textarea>
         <input id="contact-button" type=submit value="Abschicken">
-      </form-->
-      
+      </form>
     </div>
   </div>
   <div id="impressum">
