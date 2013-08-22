@@ -372,10 +372,11 @@ body {
 
 #impressum {
     position: absolute;
-    width: 900px;
+    width: 800px;
     height: 330px;
     left: 90%;
-    margin-left: -450px;
+    margin-left: -400px;
+    margin-top: -25px;
 }
 
 #impressum-info p, #contact-info p {
@@ -385,7 +386,7 @@ body {
 #impressum-info, #impressum-text, #contact-info {
     position: absolute;
     font-family: 'Source Sans Pro';
-    font-size: 15pt;
+    font-size: 12pt;
     text-align: left;
     display: inline-block;
     color: #323232;
@@ -603,7 +604,187 @@ body {
     height: 175px;
     position: absolute;
     top: 35%;
-    left: 1050px;
+    left: 90%;
+}
+
+#about621 {
+    z-index: 1000;
+    background-size: 70px;
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    top: 75%;
+    left: 108%;
+}
+
+#about321 {
+    z-index: 1000;
+    background-size: 120px;
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    top: 10%;
+    left: 115%;
+}
+
+#about411 {
+    z-index: 1000;
+    background-size: 300px;
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    bottom: -25%;
+    left: 170%;
+}
+
+#about111 {
+    z-index: 1000;
+    background-size: 80px;
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    bottom: 6%;
+    left: 185%;
+}
+
+#products321 {
+    z-index: 5;
+    background-size: 120px;
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    top: 55%;
+    left: 210%;
+}
+
+#products721 {
+    z-index: 5;
+    background-size: 70px;
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    top: 65%;
+    left: 205%;
+}
+
+#products521 {
+    z-index: 1000;
+    background-size: 150px;
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: 10%;
+    left: 285%;
+}
+
+#products411 {
+    z-index: 5;
+    background-size: 350px;
+    width: 350px;
+    height: 350px;
+    position: absolute;
+    bottom: -20%;
+    left: 270%;
+}
+
+#contact421 {
+    z-index: 1000;
+    background-size: 150px;
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: 5%;
+    left: 325%;
+}
+
+#contact721 {
+    z-index: 5;
+    background-size: 100px;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 50%;
+    left: 310%;
+}
+
+#contact611 {
+    z-index: 5;
+    background-size: 300px;
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    bottom: -25%;
+    left: 325%;
+}
+
+#contact621 {
+    z-index: 5;
+    background-size: 60px;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    top: 45%;
+    left: 380%;
+}
+
+#contact622 {
+    z-index: 5;
+    background-size: 90px;
+    width: 90px;
+    height: 90px;
+    position: absolute;
+    top: 48%;
+    left: 375%;
+}
+
+#contact711 {
+    z-index: 5;
+    background-size: 220px;
+    width: 220px;
+    height: 220px;
+    position: absolute;
+    bottom: -10%;
+    left: 387%;
+}
+
+#impressum721 {
+    z-index: 1000;
+    background-size: 170px;
+    width: 170px;
+    height: 170px;
+    position: absolute;
+    top: 30%;
+    left: 406%;
+}
+
+#impressum121 {
+    z-index: 1000;
+    background-size: 100px;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 10%;
+    left: 465%;
+}
+
+#impressum321 {
+    z-index: 1000;
+    background-size: 70px;
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    top: 15%;
+    left: 475%;
+}
+
+#impressum611 {
+    z-index: 5;
+    background-size: 300px;
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    bottom: -15%;
+    left: 480%;
 }
 
 #preload {

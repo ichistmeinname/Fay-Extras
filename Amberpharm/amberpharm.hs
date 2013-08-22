@@ -15,6 +15,9 @@ onReady _ = do
   body >>= animateScrollTop 0 100
   navigationElements <- selectClass navItemClass
   selectClass "movable" >>= each addStartValues
+  selectClass "layer1" >>= addXValue (-1.4)
+  selectClass "layer2" >>= addXValue (-1)
+  selectClass "layer3" >>= addXValue (-0.6)
   -- each (addChangeImageOnHover (Just navigationPrefix)) navigationElements
   -- each (addActive reactivateHover changeImageToActive) navigationElements
   select slideshowId >>= addSlideshow fadeDuration
@@ -31,7 +34,9 @@ onReady _ = do
     setDataAttrDouble "startx" startX object
     setDataAttrDouble "starty" startY object
     return True
-
+  addXValue factor obj = do
+    width <- body >>= getWidth
+    setDataAttrDouble "x" (width * factor) obj
 
 parallaxBubbles index duration = do
   movableElements <- selectClass "movable"
