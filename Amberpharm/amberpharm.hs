@@ -123,10 +123,22 @@ addScrollNavigation i element =
     let moveValue = show (i * (-100.0)) ++ "%"
         duration  = abs (currentNumber - newNumber) * 1000
     addClass "active-nav" newActive
-    select "#product-selection" >>= animateTop "0" 500
-    height <- body >>= getHeight
-    select "#product-frame" >>= animateMarginTop (show height) 500
     animateLeft moveValue duration obj
+    let deactivateProductFrame = do
+          select "#product-selection" >>= animateTop "0" 500
+          height <- body >>= getHeight
+          select "#product-frame" >>= animateMarginTop (show height) 500
+    selectClass "active-product" >>= \obj -> do
+      removeClass "active-product" obj
+      currentId <- getAttr "id" currentActive
+      newId     <- getAttr "id" newActive
+      if currentId == "nav-item3" && currentId == newId
+         then deactivateProductFrame
+         else if currentId == "nav-item3"
+                 then setTimeout (deactivateProductFrame >> hide Instantly obj
+                                 >> return ())
+                                 1000
+                 else return ()
     parallaxBubbles i duration
     return ()
 
