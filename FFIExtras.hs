@@ -24,6 +24,9 @@ attrDouble = ffi "%2.attr(%1)"
 setDataAttr :: String -> String -> JQuery -> Fay ()
 setDataAttr = ffi "%3.data(%1, %2)"
 
+setDataAttrDouble :: String -> Double -> JQuery -> Fay ()
+setDataAttrDouble = ffi "%3.data(%1, %2)"
+
 dataAttr :: String -> JQuery -> Fay String
 dataAttr = ffi "%2.data(%1)"
 
@@ -34,7 +37,7 @@ hoverEnterLeave :: (Event -> Fay ()) -> (Event -> Fay ()) -> JQuery -> Fay ()
 hoverEnterLeave = ffi "%3.hover(%1, %2)"
 
 cssDouble :: String -> JQuery -> Fay Double
-cssDouble = ffi "%2.css(%1)"
+cssDouble = ffi "parseInt(%2.css(%1), 10)"
 
 setMarginLeft :: Double -> JQuery -> Fay ()
 setMarginLeft = ffi "%2.css(\"margin-left\", %1)"
@@ -56,8 +59,17 @@ setPositionX = ffi "%2.css(\"left\", %1)"
 animateLeft :: String -> Double -> JQuery -> Fay ()
 animateLeft = ffi "%3.animate({'left': %1}, %2)"
 
+animateTop :: String -> Double -> JQuery -> Fay ()
+animateTop = ffi "%3.animate({'top': %1}, %2)"
+
+animateLeftTop :: String -> String -> Double -> JQuery -> Fay ()
+animateLeftTop = ffi "%4.animate({'left': %1, 'top': %2}, %3)"
+
 animateMarginLeft :: String -> Double -> JQuery -> Fay ()
 animateMarginLeft = ffi "%3.animate({'marginLeft': %1}, %2)"
+
+animateMarginTop :: String -> Double -> JQuery -> Fay ()
+animateMarginTop = ffi "%3.animate({'marginTop': %1}, %2)"
 
 animateScrollTop :: Double -> Double -> JQuery -> Fay ()
 animateScrollTop = ffi "%3.animate({'scrollTop': %1}, %2)"

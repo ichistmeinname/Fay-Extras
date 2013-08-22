@@ -4,7 +4,7 @@ import Prelude
 import JQuery
 import FFIExtras
 import FayExtras (selectClass, addScrollAnimation, ScrollDir(..), addActive
-                 , addHover, addParallaxEffect )
+                 , addHover, movement, visibility)
 import FayDesign (addChangeImageOnHover)
 
 main :: Fay ()
@@ -13,9 +13,8 @@ main = documentReady onReady document
 onReady :: Event -> Fay ()
 onReady _ = do
   body >>= animateScrollTop 0 100
-  selectElement window >>= scroll parallaxBubbles
-  -- select "#content" >>= bind "fakeScroll" parallaxBubbles
   navigationElements <- selectClass navItemClass
+  selectClass "movable" >>= each addStartValues
   -- each (addChangeImageOnHover (Just navigationPrefix)) navigationElements
   -- each (addActive reactivateHover changeImageToActive) navigationElements
   select slideshowId >>= addSlideshow fadeDuration
@@ -25,13 +24,34 @@ onReady _ = do
   return ()
  where
   fadeDuration = 6000  -- millisecs
+  addStartValues _ element = do
+    object <- selectElement element
+    startX <- cssDouble "left" object
+    startY <- cssDouble "top" object
+    setDataAttrDouble "startx" startX object
+    setDataAttrDouble "starty" startY object
+    return True
 
-parallaxBubbles _ = do
-  pos <- select "#content" >>= getLeft
-  putStrLn (show pos)
+
+parallaxBubbles index duration = do
   movableElements <- selectClass "movable"
-  each (addParallaxEffect Vertical pos) movableElements
+  each (addParallaxEffect index duration) movableElements
   return ()
+
+addParallaxEffect :: Double -> Double -> Double -> Element -> Fay Bool
+addParallaxEffect navIndex duration _ element = do
+  object <- selectElement element
+  xPos <- dataAttrDouble "x" object
+  yPos <- dataAttrDouble "y" object
+  startX <- dataAttrDouble "startx" object
+  startY <- dataAttrDouble "starty" object
+  putStrLn (show xPos ++ "\n" ++ show yPos ++ "\n" ++ show navIndex)
+  putStrLn (show startX ++ "\n" ++ show startY)
+  animateLeftTop (show ((xPos * navIndex) + startX))
+                 (show ((yPos * navIndex) + startY))
+                 (duration * 2)
+                 object
+  return True
 
 addProductNavigation _ element = do
   selectElement element >>= click onClick >> return True
@@ -47,10 +67,13 @@ addProductNavigation _ element = do
     height <- body >>= getHeight
     select "#products" >>= setCss "height" (show $ height * (2/3))
     select "#product-frame" >>= setCss "height" (show (height / 2))
+    select "#product-frame" >>= setCss "marginTop" (show height)
     -- show product-frame
     select "#product-frame" >>= setCss "display" "block"
+    select "#product-selection" >>= animateTop "-400" 500
+    select "#product-frame" >>= animateMarginTop "0" 500
     -- scroll to product-frame
-    body >>= animateScrollTop height 750
+    -- body >>= animateScrollTop height 750
     return ()
 
 addProductHover _ element = do
@@ -76,13 +99,7 @@ addScrollNavigation i element =
   selectElement element >>= click onClick >> return True
  where
   onClick _ = do
-    body >>= animateScrollTop 0 500
-    -- setTimeout (do
-    -- -- body >>= addClass "enlargeBody"
-    --   selectClass "product-frame" >>=
-    --     each (\_ e -> selectElement e >>= hide Instantly >> return True)
-    --   select "#product-frame" >>= hide Instantly
-    --   return ()) 500
+    -- body >>= animateScrollTop 0 500
     obj <- select "#content"
     currentActive <- selectClass "active-nav"
     removeClass "active-nav" currentActive
@@ -92,9 +109,12 @@ addScrollNavigation i element =
     let moveValue = show (i * (-100.0)) ++ "%"
         duration  = abs (currentNumber - newNumber) * 500
     addClass "active-nav" newActive
+    select "#product-selection" >>= animateTop "0" 500
+    height <- body >>= getHeight
+    select "#product-frame" >>= animateMarginTop (show height) 500
     animateLeft moveValue duration obj
-    selectElement window >>= triggerScroll
-    trigger "fakeScroll" obj
+    parallaxBubbles i duration
+    return ()
 
 addSlideshow :: Double -> JQuery -> Fay ()
 addSlideshow duration obj = do

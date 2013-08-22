@@ -139,10 +139,10 @@ body {
 }
 
 #products {
-    /* width: 1000px; */
+    width: 100%;
     /* left: 50%; */
     /* margin-left: -500px; */
-    /* position: absolute; */
+    position: absolute;
     /* height: 750px; */
 }
 
@@ -226,12 +226,10 @@ body {
 }
 
 #product-frame {
-    margin-top: 400px;
     margin-bottom: 50px;
     left: 50%;
     margin-left: -450px;
     width: 900px;
-    /* height: 40%; */
     position: absolute;
     background-color: rgba(255,255,255,0.4);
     display: none;
@@ -327,20 +325,64 @@ body {
     height: 200px;
 }
 
+#contact {
+    position: absolute;
+    width: 900px;
+    height: 330px;
+    left: 70%;
+    margin-left: -450px;
+    margin-top: -100px;
+}
+
+#contact-info {
+    position: absolute;
+    left: 10%;
+    top: 25%;
+}
+
+#contact-form {
+    position: absolute;
+    left: 60%;
+    top: 25%;
+    display: block;
+    width: 30%;
+}
+
+#contact-name, #contact-mail, #contact-msg {
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%;
+    /* height: 10px; */
+    line-height: 15pt;
+    background-color: lightgrey;
+}
+
+#contact-msg {
+    position: relative;
+    height: 150px;
+}
+
+#contact-button {
+    position: absolute;
+    background-color: lightgrey;
+    color: grey;
+    right: 0%;
+}
+
+
 #impressum {
     position: absolute;
     width: 900px;
     height: 330px;
     left: 90%;
     margin-left: -450px;
-    margin-top: -50px;
 }
 
-#impressum-info p {
+#impressum-info p, #contact-info p {
     margin: 0;
 }
 
-#impressum-info, #impressum-text {
+#impressum-info, #impressum-text, #contact-info {
     position: absolute;
     font-family: 'Source Sans Pro';
     font-size: 15pt;
@@ -507,24 +549,61 @@ body {
     background-image: url('Bubbles/Bubbles/bubble7_2.png');
 }
 
-#home311 {
+
+#home311{
     z-index: 1000;
     background-size: 150px;
     width: 150px;
     height: 150px;
     position: absolute;
+    bottom: -5%;
+    left: 10%;
+}
+
+#home321 {
+    z-index: 1000;
+    background-size: 120px;
+    width: 120px;
+    height: 120px;
+    position: absolute;
     top: 10%;
     left: 10%;
 }
-#home321{
-}
 #home322{
+    z-index: 1000;
+    background-size: 60px;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    top: 12%;
+    left: 83%;
 }
 #home611{
+    z-index: 1000;
+    background-size: 300px;
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    bottom: -7.5%;
+    left: -7.5%;
 }
 #home621{
+    z-index: 1000;
+    background-size: 100px;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 10%;
+    left: 85%;
 }
 #home622{
+    z-index: 1000;
+    background-size: 175px;
+    width: 175px;
+    height: 175px;
+    position: absolute;
+    top: 35%;
+    left: 1050px;
 }
 
 #preload {
