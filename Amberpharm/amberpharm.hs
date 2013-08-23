@@ -98,6 +98,8 @@ addProductHover _ element = do
     dummyObj <- select dummyId
     productId <- dataAttr "product" obj
     select productId >>= addClass "product-hover"
+    productText <- dataAttr "text" obj
+    select productText >>= setCss "color" "#253d6c"
     fadeOutE 500 (\_ -> return obj) dummyObj
     return ()
   leave obj _ = do
@@ -105,6 +107,8 @@ addProductHover _ element = do
     dummyObj <- select dummyId
     productId <- dataAttr "product" obj
     select productId >>= removeClass "product-hover"
+    productText <- dataAttr "text" obj
+    select productText >>= setCss "color" "#323232"
     fadeInE 500 (\_ -> return dummyObj) dummyObj
     return ()
 

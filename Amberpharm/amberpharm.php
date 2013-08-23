@@ -77,7 +77,7 @@ Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie co
       </div>
     </div>
     <div id="product-frame">
-    <div id="product1">
+    <div id="product1" class="product-page">
       <h3 class="product-title">Regeneriernde Kraft aus dem Meer...die Alge!</h3><br>
       <p class="product-text">
   Algen sind die &auml;ltesten pflanzlichen Lebewesen, die die Wissenschaft
@@ -110,7 +110,7 @@ Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie co
       <div id="image-alge1" class="product-image"></div>
       <div id="image-alge2" class="product-image"></div>
     </div>
-    <div id="product2" class="product-frame">
+    <div id="product2" class="product-page">
       <h3 class="product-title">Kraftvoller Schutz aus dem Meer... die
         Auster!</h3>
       <br>
@@ -138,7 +138,7 @@ Unsere Forschung...unsere Ideen, lassen verbl&uuml;ffende und sinnvolle
       <div id="image-auster1" class="product-image"></div>
       <div id="image-auster2" class="product-image"></div>
     </div>
-    <div id="product3" class="product-frame">
+    <div id="product3" class="product-page">
       <h3 class="product-title">Die Urkraft aus dem Meer...unser Salz!</h3><br>
       <p class="product-text">
 Entsprechend allen Strukturen unseres K&ouml;rpers, besteht  auch unsere

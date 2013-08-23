@@ -160,6 +160,7 @@ body {
     width: 210px;
     height: 210px;
     z-index: 10;
+    -webkit-transform: translate2d(0);
 }
 
 .kreis {
@@ -182,9 +183,21 @@ body {
     left: 67.5%;
 }
 
-.enlargeBody {
-    overflow-y: visible !important;
+#alge-text, #salz-text, #auster-text {
+    margin-top: 200px;
 }
+
+.caption {
+    font-family: 'HelveticaNeue';
+    font-size: 30px;
+    color: #323232;
+    text-align: center;
+    z-index: 1;
+}
+
+/* .caption:hover { */
+/*     color: #253d6c; */
+/* } */
 
 .product {
     position: absolute;
@@ -200,7 +213,13 @@ body {
     -ms-transition: -ms-transform 0.5s ease-out;
     -o-transition: -o-transform 0.5s ease-out;
     -webkit-transform: scale(0.75,0.75);
+    -moz-transform: scale(0.75,0.75);
+    -ms-transform: scale(0.75,0.75);
+    -o-transform: scale(0.75,0.75);
     -webkit-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
 }
 
 .product-hover {
@@ -433,10 +452,11 @@ body {
 .nav {
     display: inline-block;
     font-size: 15pt;
-    font-family:"HelveticaNeue-Ultralight";
+    font-family:"HelveticaNeue-Light";
     color: #9f9a96;
     line-height: 15pt;
     text-align: center;
+    -webkit-transform: translate3d(0, 0, 0);
 }
 
 .nav:hover {
