@@ -51,13 +51,6 @@ body {
   src: local('Source Sans Pro Light'), local('SourceSansPro-Light'), url(http://themes.googleusercontent.com/static/fonts/sourcesanspro/v5/toadOcfmlt9b38dHJxOBGMVNtom4QlEDNJaqqqzqdSs.woff) format('woff');
 }
 
-@font-face {
-  font-family: 'Source Sans Pro Thick';
-  font-style: normal;
-  font-weight: 300;
-  src: local('Source Sans Pro'), local('SourceSansPro'), url(http://themes.googleusercontent.com/static/fonts/sourcesanspro/v5/toadOcfmlt9b38dHJxOBGMVNtom4QlEDNJaqqqzqdSs.woff) format('woff');
-}
-
 #content {
     position: absolute;
     width: 500%;
@@ -453,7 +446,7 @@ body {
 .nav {
     display: inline-block;
     font-size: 15pt;
-    font-family:"HelveticaNeue-Light";
+    font-family:"HelveticaNeue-UltraLight";
     color: #9f9a96;
     line-height: 15pt;
     text-align: center;
