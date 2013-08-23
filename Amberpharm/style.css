@@ -455,6 +455,10 @@ body {
     border-bottom: 2px solid #736f89;
 }
 
+.active-product {
+    display: block !important;
+}
+
 #nav-item1 {
     width: 58px;
 }

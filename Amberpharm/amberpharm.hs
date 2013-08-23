@@ -72,11 +72,10 @@ addProductNavigation _ element = do
  where
   onClick _ = do
     -- hide last selected product
-    selectClass "active-product" >>= hide Instantly
-                                 >>= removeClass "active-product"
+    selectClass "active-product" >>= removeClass "active-product"
     -- show new selected product
     productId <- selectElement element >>= dataAttr "product"
-    select productId >>= unhide >>= addClass "active-product"
+    select productId >>= addClass "active-product"
     -- calculate scroll position and product-frame height
     height <- body >>= getHeight
     select "#products" >>= setCss "height" (show $ height * (2/3))
