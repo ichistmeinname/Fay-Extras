@@ -97,7 +97,7 @@ addProductHover _ element = do
     dummyId <- dataAttr "dummy" obj
     dummyObj <- select dummyId
     productId <- dataAttr "product" obj
-    select productId >>= addClass "product-hover"
+    select productId >>= animateScale "100" 500
     productText <- dataAttr "text" obj
     select productText >>= setCss "color" "#253d6c"
     fadeOutE 500 (\_ -> return obj) dummyObj
@@ -107,6 +107,7 @@ addProductHover _ element = do
     dummyObj <- select dummyId
     productId <- dataAttr "product" obj
     select productId >>= removeClass "product-hover"
+    select productId >>= animateScale "85" 500
     productText <- dataAttr "text" obj
     select productText >>= setCss "color" "#323232"
     fadeInE 500 (\_ -> return dummyObj) dummyObj
@@ -132,13 +133,13 @@ addScrollNavigation i element =
           height <- body >>= getHeight
           select "#product-frame" >>= animateMarginTop (show height) 500
     selectClass "active-product" >>= \obj -> do
-      removeClass "active-product" obj
       currentId <- getAttr "id" currentActive
       newId     <- getAttr "id" newActive
       if currentId == "nav-item3" && currentId == newId
          then deactivateProductFrame
          else if currentId == "nav-item3"
                  then setTimeout (deactivateProductFrame >> hide Instantly obj
+                                 >> removeClass "active-product" obj
                                  >> return ())
                                  1000
                  else return ()

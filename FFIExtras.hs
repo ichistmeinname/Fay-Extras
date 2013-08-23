@@ -62,6 +62,13 @@ animateLeft = ffi "%3.animate({'left': %1}, %2)"
 animateTop :: String -> Double -> JQuery -> Fay ()
 animateTop = ffi "%3.animate({'top': %1}, %2)"
 
+animateScale :: String -> Double -> JQuery -> Fay ()
+animateScale = ffi "\
+  \ %3.animate({  'borderSpacing': %1 }, {\
+  \ 'step': function(now,fx) {\
+     \ %3.css('-webkit-transform','scale('+(now/100)+','+(now/100)+')');\
+   \ },duration:'slow'},'linear')"
+
 animateLeftTop :: String -> String -> Double -> JQuery -> Fay ()
 animateLeftTop = ffi "%4.animate({'left': %1, 'top': %2}, %3)"
 
