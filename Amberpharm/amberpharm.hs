@@ -80,10 +80,13 @@ addProductNavigation _ element = do
     height <- body >>= getHeight
     select "#products" >>= setCss "height" (show $ height * (2/3))
     select "#product-frame" >>= setCss "height" (show (height / 2))
+    select "#back-button" >>= setCss "top" (show height)
     select "#product-frame" >>= setCss "marginTop" (show height)
     -- show product-frame
     select "#product-frame" >>= setCss "display" "block"
+    select "#back-button" >>= setCss "display" "block"
     select "#product-selection" >>= animateTop "-400" 500
+    select "#back-button" >>= animateTop "-50" 500
     select "#product-frame" >>= animateMarginTop "0" 500
     -- scroll to product-frame
     -- body >>= animateScrollTop height 750
@@ -132,6 +135,7 @@ addScrollNavigation i element =
           select "#product-selection" >>= animateTop "0" 500
           height <- body >>= getHeight
           select "#product-frame" >>= animateMarginTop (show height) 500
+          select "#back-button" >>= animateTop (show height) 500
     selectClass "active-product" >>= \obj -> do
       currentId <- getAttr "id" currentActive
       newId     <- getAttr "id" newActive

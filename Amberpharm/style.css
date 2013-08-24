@@ -251,6 +251,18 @@ body {
     overflow-y: scroll;
 }
 
+#back-button {
+    background-image: url('Produkte/Unterseiten/backup_btn.png');
+    background-size: 187px;
+    width: 187px;
+    height: 36px;
+    top: -50px;
+    left: 50%;
+    margin-left: -93px;
+    position: absolute;
+    display: none;
+}
+
 .product-title {
     width: 100%;
     text-align: center;
