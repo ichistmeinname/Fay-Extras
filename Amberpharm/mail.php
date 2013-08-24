@@ -1,4 +1,5 @@
 <?php
+
   $name = $_POST['name'];
   $mail = $_POST['mail'];
   $msg = $_POST['msg'];
@@ -7,9 +8,13 @@
   $subject = "Kontaktformularnachricht von " + $name;
  
     if ((!empty($name))&&(!empty($mail))&&(!empty($msg))) {
-      mail($to, $subject, $msg, 'From:' . $email); //Mail versenden 
-      return true;
-    } else {
-      return false;
+      // this line checks that we have a valid email address
+      if (filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+        $send = mail($to, $subject, $msg, 'From:' . $mail); //Mail versenden
+        echo $send;
+      } else {
+        echo "invalidMail";
+      }
     }
+
 ?>

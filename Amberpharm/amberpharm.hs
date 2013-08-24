@@ -12,7 +12,26 @@ main = documentReady onReady document
 
 onReady :: Event -> Fay ()
 onReady _ = do
-  body >>= animateScrollTop 0 100
+  selectClass "loading-img" >>= setCss "opacity" "0"
+  addLoadingAnimation 1.0
+  selectElement window >>= load onLoad
+
+addLoadingAnimation :: Double -> Fay ()
+addLoadingAnimation i
+  | i == 3    = setActive i >> setTimeout (addLoadingAnimation 0) 500
+  | i == 0    = do
+    selectClass "loading-img" >>= setCss "opacity" "0"
+    setTimeout (addLoadingAnimation (i+1)) 500
+  | otherwise = setActive i >> setTimeout (addLoadingAnimation (i+1)) 500
+ where
+  setActive i =
+    select ("#loading" ++ (show i)) >>= setCss "opacity" "1"
+
+onLoad :: Event -> Fay ()
+onLoad _ = do
+  obj <- select "#container"
+  select "#loading" >>= fadeOutE 1000 (\_ -> return obj)
+  select "#container" >>= \o -> fadeInE 2000 (\_ -> return o) o
   -- activate home as current navigation item
   select "#nav-item1" >>= addClass "active-nav"
   -- change active navigation after submit contact form

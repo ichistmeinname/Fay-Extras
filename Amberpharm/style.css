@@ -24,11 +24,62 @@ body {
 	color-stop(90%, rgb(255,255,255)));
 }
 
+#loading {
+    position:   fixed;
+    z-index:    10;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+}
+
+#loading p {
+    font-family: 'HelveticaNeue';
+    font-size: 20px;
+    color: #323232;
+    text-align: center;
+    top: 45%;
+    position: relative;
+}
+
+.loading-img {
+    background-image: url('loading_punkt.png');
+    background-size: 7px;
+    width: 7px;
+    height: 7px;
+    position: relative;
+    top: 45%;
+    left: 50%;
+    z-index: 11;
+    display: block;
+    margin-left: -7px;
+}
+
+#loading1 {
+    margin-left: -22px;
+}
+
+#loading2 {
+    margin-top: -7px;
+}
+
+#loading3 {
+    margin-left: 8px;
+    margin-top: -7px;
+}
+
+#container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display:none;
+}
+
 #fixed {
     position: fixed;
     width: 100%;
     background-color: white;
-    z-index: 1000;
+    z-index: 900;
     left: 0px;
     right: 0px;
     top: 0px;
@@ -94,8 +145,6 @@ body {
     top: 4.9%;
     width: 876px;
     height: 226px;
-    /* margin-left: auto; */
-    /* margin-right: auto; */
     position: absolute;
     display: none;
 }
@@ -368,12 +417,15 @@ body {
 #message {
     display: none;
     position: absolute;
+    margin-left: 50%;
+    margin-top: 40%;
+    width: 40%;
+    height: 20px;
     font-family: 'Source Sans Pro';
     font-size: 12pt;
     text-align: center;
-    display: inline-block;
     color: #323232;
-    
+    z-index: 900;
 }
 
 #contact-form {
@@ -382,7 +434,23 @@ body {
     top: 25%;
     display: block;
     width: 30%;
-    z-index:1000;
+    z-index:900;
+}
+
+#mail-error, #name-error, #msg-error {
+    display: none; 
+}
+
+label {
+    font-family: 'Source Sans Pro';
+    font-size: 10.5pt;
+    text-align: left;
+    display: inline-block;
+    color: red;  
+}
+
+#contact-name {
+    margin-top: 18px;
 }
 
 #contact-name, #contact-mail, #contact-msg {
@@ -548,7 +616,7 @@ body {
 }
 
 .bubble22 {
-    background-image: url('Bubbles/Bubbles/bubble1_2.png');
+    background-image: url('Bubbles/Bubbles/bubble2_2.png');
 }
 
 .bubble31 {
@@ -593,7 +661,7 @@ body {
 
 
 #home311{
-    z-index: 1000;
+    z-index: 950;
     background-size: 150px;
     width: 150px;
     height: 150px;
@@ -603,7 +671,7 @@ body {
 }
 
 #home321 {
-    z-index: 1000;
+    z-index: 950;
     background-size: 120px;
     width: 120px;
     height: 120px;
@@ -612,7 +680,7 @@ body {
     left: 10%;
 }
 #home322{
-    z-index: 1000;
+    z-index: 950;
     background-size: 60px;
     width: 60px;
     height: 60px;
@@ -621,7 +689,7 @@ body {
     left: 83%;
 }
 #home611{
-    z-index: 1000;
+    z-index: 950;
     background-size: 300px;
     width: 300px;
     height: 300px;
@@ -630,7 +698,7 @@ body {
     left: -7.5%;
 }
 #home621{
-    z-index: 1000;
+    z-index: 950;
     background-size: 100px;
     width: 100px;
     height: 100px;
@@ -639,7 +707,7 @@ body {
     left: 85%;
 }
 #home622{
-    z-index: 1000;
+    z-index: 950;
     background-size: 175px;
     width: 175px;
     height: 175px;
@@ -649,7 +717,7 @@ body {
 }
 
 #about621 {
-    z-index: 1000;
+    z-index: 950;
     background-size: 70px;
     width: 70px;
     height: 70px;
@@ -659,7 +727,7 @@ body {
 }
 
 #about321 {
-    z-index: 1000;
+    z-index: 950;
     background-size: 120px;
     width: 120px;
     height: 120px;
@@ -669,7 +737,7 @@ body {
 }
 
 #about411 {
-    z-index: 1000;
+    z-index: 950;
     background-size: 300px;
     width: 300px;
     height: 300px;
@@ -679,7 +747,7 @@ body {
 }
 
 #about111 {
-    z-index: 1000;
+    z-index: 950;
     background-size: 80px;
     width: 80px;
     height: 80px;
@@ -709,7 +777,7 @@ body {
 }
 
 #products521 {
-    z-index: 1000;
+    z-index: 950;
     background-size: 150px;
     width: 150px;
     height: 150px;
@@ -729,7 +797,7 @@ body {
 }
 
 #contact421 {
-    z-index: 1000;
+    z-index: 950;
     background-size: 150px;
     width: 150px;
     height: 150px;
@@ -789,7 +857,7 @@ body {
 }
 
 #impressum721 {
-    z-index: 1000;
+    z-index: 950;
     background-size: 170px;
     width: 170px;
     height: 170px;
@@ -799,7 +867,7 @@ body {
 }
 
 #impressum121 {
-    z-index: 1000;
+    z-index: 950;
     background-size: 100px;
     width: 100px;
     height: 100px;
@@ -809,7 +877,7 @@ body {
 }
 
 #impressum321 {
-    z-index: 1000;
+    z-index: 950;
     background-size: 70px;
     width: 70px;
     height: 70px;
