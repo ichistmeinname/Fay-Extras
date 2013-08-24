@@ -16,7 +16,7 @@ onReady _ = do
   -- activate home as current navigation item
   select "#nav-item1" >>= addClass "active-nav"
   -- change active navigation after submit contact form
-  select "#contact-button" >>= click onClick
+  select "#back-button" >>= click showSelection
   navigationElements <- selectClass navItemClass
   selectClass "movable" >>= each addStartValues
   selectClass "layer1" >>= addXValue (-1.4)
@@ -31,13 +31,13 @@ onReady _ = do
   return ()
  where
   fadeDuration = 6000  -- millisecs
-  onClick _ = do
-     putStrLn "click"
-     select "head" >>=
-       append "<style type='text/css'> #content { left:-300%; }</style>"
-     select "nav-item4" >>= addClass "active-nav"
-     putStrLn "change styles"
-     return ()
+  showSelection _ = do
+    putStrLn "click"
+    select "#product-selection" >>= animateTop "0" 500
+    height <- body >>= getHeight
+    select "#product-frame" >>= animateMarginTop (show height) 500
+    select "#back-button" >>= animateTop (show height) 500
+    return ()
   addStartValues _ element = do
     object <- selectElement element
     startX <- cssDouble "left" object

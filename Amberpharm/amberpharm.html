@@ -183,29 +183,37 @@ Damit unterscheiden wir uns von 80% aller anderen Hersteller auf dem
   </div>
   </div>
   <div id="contact">
-<?php
-  $name = $_POST['name'];
-  $mail = $_POST['mail'];
-  $msg = $_POST['msg'];
+   <script>
+    $('contact-button').click( function() {
+      var name = $("#contact-name").val();  
+      if (name == "") {  
+        $("#name-error").show();  
+        $("#contact-name").focus();  
+        return false;  
+      }  
+      var email = $("#contact-mail").val();  
+      if (email == "") {  
+        $("#mail-error").show();  
+        $("#contact-mail").focus();  
+        return false;  
+      }  
+      var msg = $("#contact-msg").val();  
+      if (msg == "") {  
+        $("#msg_error").show();  
+        $("#contact-msg").focus();  
+        return false;  
+      }
 
-  $to = "admin@carinamitc.de";
-  $subject = "Kontaktformularnachricht von " . $name;
- 
-    if ((!empty($name))&&(!empty($mail))&&(!empty($msg))) {
- 
-      mail($to, $subject, $msg, 'From:' . $mail); //Mail versenden
- 
-      //redirect("http://carinamitc.de/Amberpharm/amberpharm.html", 302);
-    }
-    else {
-      //redirect("http://carinamitc.de/Amberpharm/amberpharm.html", 302);
-    }
-
-  function redirect($url, $statusCode = 303) {
-    header('Location: ' . $url, true, $statusCode);
-    die();
-  }
-?>
+      $.ajax({
+         type: "POST",
+         url: "mail.php",
+         data: { name: name, email: email, msg: msg },
+         success: function() {
+           $("#contact-form").css("display", "none");
+           $("#message").css("display", "block");
+         }});
+    });  
+   </script>
     <div id="contact-info">
       <p>Amberpharm GmbH</p>
       <br>
@@ -216,13 +224,14 @@ Damit unterscheiden wir uns von 80% aller anderen Hersteller auf dem
       <p>Tel: 0700 80 30 20 10</p>
       <p>Mail: info(at)amberpharm.de</p>
     </div>
+    <div id="message">Vielen Dank f&uuml;r ihre Nachricht, wir werden
+         sie sobald wie m&ouml;glich kontaktieren.</div>
     <div id="contact-form">
-      <form action="amberpharm.php" method="post"
-            enctype="application/x-www-form-urlencoded">
+      <form action="mail.php" method="post">
         <input id="contact-name" name="name" type="text" placeholder="Name">
         <input id="contact-mail" name="mail" type="email" placeholder="E-Mail">
         <textarea id="contact-msg" name="msg" placeholder="Nachricht"></textarea>
-        <input id="contact-button" type=submit value="Abschicken">
+        <input id="contact-button" type=button value="Abschicken">
       </form>
     </div>
   </div>

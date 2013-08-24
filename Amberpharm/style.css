@@ -365,6 +365,17 @@ body {
     top: 25%;
 }
 
+#message {
+    display: none;
+    position: absolute;
+    font-family: 'Source Sans Pro';
+    font-size: 12pt;
+    text-align: center;
+    display: inline-block;
+    color: #323232;
+    
+}
+
 #contact-form {
     position: absolute;
     left: 60%;
