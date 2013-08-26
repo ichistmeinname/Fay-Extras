@@ -12,6 +12,7 @@ main = documentReady onReady document
 
 onReady :: Event -> Fay ()
 onReady _ = do
+  -- loading screen
   selectClass "loading-img" >>= setCss "opacity" "0"
   addLoadingAnimation 1.0
   selectElement window >>= load onLoad
@@ -29,6 +30,7 @@ addLoadingAnimation i
 
 onLoad :: Event -> Fay ()
 onLoad _ = do
+  -- hide loading screen and fade in main page
   obj <- select "#container"
   select "#loading" >>= fadeOutE 1000 (\_ -> return obj)
   select "#container" >>= \o -> fadeInE 2000 (\_ -> return o) o
@@ -41,8 +43,6 @@ onLoad _ = do
   selectClass "layer1" >>= addXValue (-1.4)
   selectClass "layer2" >>= addXValue (-1)
   selectClass "layer3" >>= addXValue (-0.6)
-  -- each (addChangeImageOnHover (Just navigationPrefix)) navigationElements
-  -- each (addActive reactivateHover changeImageToActive) navigationElements
   select slideshowId >>= addSlideshow fadeDuration
   selectClass "kreis" >>= each addProductHover
   selectClass "product" >>= each addProductNavigation
@@ -101,6 +101,8 @@ addProductNavigation _ element = do
     select "#product-frame" >>= setCss "height" (show (height / 2))
     select "#back-button" >>= setCss "top" (show height)
     select "#product-frame" >>= setCss "marginTop" (show height)
+    -- reset product-frame scroll position
+    select "#product-frame" >>= setScrollTop 0
     -- show product-frame
     select "#product-frame" >>= setCss "display" "block"
     select "#back-button" >>= setCss "display" "block"
