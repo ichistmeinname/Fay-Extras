@@ -59,6 +59,10 @@ setPositionX = ffi "%2.css(\"left\", %1)"
 animateLeft :: String -> Double -> JQuery -> Fay ()
 animateLeft = ffi "%3.animate({'left': %1}, %2)"
 
+animateLeftEaseOutBack :: String -> Double -> JQuery -> Fay ()
+animateLeftEaseOutBack = ffi "%3.animate(\
+  \ {'left': %1}, {'duration': %2, 'easing': 'easeOutBack'})"
+
 animateTop :: String -> Double -> JQuery -> Fay ()
 animateTop = ffi "%3.animate({'top': %1}, %2)"
 

@@ -76,13 +76,17 @@ addParallaxEffect :: Double -> Double -> Double -> Element -> Fay Bool
 addParallaxEffect navIndex duration _ element = do
   object <- selectElement element
   xPos <- dataAttrDouble "x" object
-  yPos <- dataAttrDouble "y" object
   startX <- dataAttrDouble "startx" object
-  startY <- dataAttrDouble "starty" object
-  animateLeftTop (show ((xPos * navIndex) + startX))
-                 (show ((yPos * navIndex) + startY))
-                 (duration * 2)
-                 object
+  let leftValue = xPos * navIndex + startX
+  currentLeft <- cssDouble "left" object
+  let (val1,val2) = if currentLeft < leftValue
+                       then (leftValue + 20, leftValue)
+                       else if currentLeft > leftValue
+                               then (leftValue, leftValue + 20)
+                               else (leftValue, leftValue)
+  animateLeftEaseOutBack (show val1)
+                         (duration * 2)
+                         object
   return True
 
 addProductNavigation _ element = do
@@ -151,7 +155,7 @@ addScrollNavigation i element =
         duration  = abs (currentNumber - newNumber) * 1000
     addClass "active-nav" newActive
     animateLeft moveValue duration obj
-    parallaxBubbles i (duration/2)
+    parallaxBubbles i duration
     let deactivateProductFrame = do
           select "#product-selection" >>= animateTop "0" 500
           height <- body >>= getHeight
