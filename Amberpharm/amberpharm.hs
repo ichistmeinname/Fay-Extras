@@ -80,11 +80,12 @@ addParallaxEffect navIndex duration _ element = do
   let leftValue = xPos * navIndex + startX
   currentLeft <- cssDouble "left" object
   let (val1,val2) = if currentLeft < leftValue
-                       then (leftValue + 20, leftValue)
+                       then (leftValue + 50, leftValue)
                        else if currentLeft > leftValue
-                               then (leftValue, leftValue + 20)
+                               then (leftValue, leftValue + 50)
                                else (leftValue, leftValue)
   animateLeftEaseOutBack (show val1)
+                         (show val2)
                          (duration * 2)
                          object
   return True
