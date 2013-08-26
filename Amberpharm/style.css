@@ -235,10 +235,6 @@ body {
     margin-top: 200px;
 }
 
-#auster-text {
-    font-size: 12pt;
-}
-
 .caption {
     font-family: 'HelveticaNeue';
     font-size: 15pt;
@@ -287,10 +283,6 @@ body {
     box-shadow: 0px 0px 5px 5px grey;
 }
 
-#alge {
-    background-image: url('Produkte/Alge.png');
-}
-
 #product-frame {
     margin-bottom: 50px;
     left: 50%;
@@ -337,6 +329,10 @@ body {
     z-index: 300;
 }
 
+#alge {
+    background-image: url('Produkte/Alge.png');
+}
+
 #auster {
     background-image: url('Produkte/Auster.png');
 }
@@ -381,10 +377,11 @@ body {
 
 #image-auster2 {
     background-image: url('Produkte/Unterseiten/Elemente/Auster/auster_packshot.png');
+    background-size: 202px;
     margin-top: 25px;
     margin-bottom: 50px;
-    width: 300px;
-    height: 420px;
+    width: 202px;
+    height: 300px;
 }
 
 #image-salz1 {
