@@ -2,33 +2,33 @@ $(document).ready( function() {
   $("#contact-button").click( function() {
       var name = $("#contact-name").val();  
       if (name == "") {  
-        $("#contact-name").css("margin-top","0");
-        $("#name-error").show();  
-        $("#contact-name").focus();  
+          $("#name-error").show();  
+          $("#contact-name").focus();
+          $("#contact-name").css("background-color","#6e90cf"); 
         return false;  
       } else {
-          $("#contact-name").css("margin-top","18");
-          $("#name-error").hide();  
+          $("#name-error").hide();
+          $("#contact-name").css("background-color","lightgrey");
       }
       var email = $("#contact-mail").val();
       if (email == "" || !isEmail(email)) {
-          $("#contact-name").css("margin-bottom","2");
           $("#mail-error").show();  
+          $("#contact-mail").css("background-color","#6e90cf");
           $("#contact-mail").focus();  
           return false;  
       } else {
-          $("#contact-name").css("margin-bottom","20");
+          $("#contact-mail").css("background-color","lightgrey");
           $("#mail-error").hide();  
       }
       var msg = $("#contact-msg").val();  
       if (msg == "") {
-          $("#contact-mail").css("margin-bottom","2");
           $("#msg-error").show();  
-          $("#contact-msg").focus();  
+          $("#contact-msg").focus();
+          $("#contact-msg").css("background-color","#6e90cf");
           return false;  
       } else {
-          $("#contact-mail").css("margin-bottom","20");
-          $("#msg-error").hide();  
+          $("#msg-error").hide();
+          $("#contact-msg").css("background-color","lightgrey");
       }
       $.ajax({
       type: "POST",
@@ -40,7 +40,8 @@ $(document).ready( function() {
              $("#message").css("display", "inline-block");
              console.log("success");
           } else if (data == "invalidMail") {
-              $("#mail_invalid_error").show();  
+              $("#mail-error").show();
+              $("#contact-mail").css("background-color","#6e90cf");
           } else {
               $("#error").show();
           }

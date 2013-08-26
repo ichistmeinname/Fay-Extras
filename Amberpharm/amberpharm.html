@@ -204,16 +204,18 @@
            Sie sobald wie m&ouml;glich kontaktieren.</p></div>
       <div id="contact-form">
         <form method="POST" id="mail-form" action="mail.php">
-          <label id="name-error" for="contact-name">Bitte gebe einen
+          <label id="name-error" for="contact-name"
+          class="error">Bitte geben Sie einen
           Namen an.</label>
           <input id="contact-name" name="name" type="text"
           placeholder="Name">
-          <label id="mail-error" for="contact-mail">Bitte gebe eine
+          <label id="mail-error" for="contact-mail"
+          class="error">Bitte geben Sie eine
           g&uuml;ltige E-Mailadresse an.</label>
           <input id="contact-mail" name="mail" type="email"
           placeholder="E-Mail">
-          <label id="msg-error" for="contact-msg">Bitte gebe eine
-          Nachricht an.</label>
+          <label id="msg-error" for="contact-msg" class="error">Bitte
+          geben Sie eine Nachricht an.</label>
           <textarea id="contact-msg" name="msg" placeholder="Nachricht"></textarea>
           <input id="contact-button" type="submit" value="Abschicken">
         </form>

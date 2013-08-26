@@ -441,16 +441,30 @@ body {
     display: none; 
 }
 
+#name-error {
+    margin-left: -195px;
+    margin-right: 8px;
+    top: 18px;
+}
+
+#mail-error {
+    margin-left: -268px;
+    margin-right: 9px;
+    top: 18px;
+}
+
+#msg-error {
+    margin-left: -201px;
+    margin-right: 9px;
+    position: absolute;
+}
+
 label {
     font-family: 'Source Sans Pro';
     font-size: 10.5pt;
     text-align: left;
     display: inline-block;
-    color: red;  
-}
-
-#contact-name {
-    margin-top: 18px;
+    color: red;
 }
 
 #contact-name, #contact-mail, #contact-msg {
@@ -473,7 +487,6 @@ label {
     color: grey;
     right: 0%;
 }
-
 
 #impressum {
     position: absolute;

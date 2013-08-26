@@ -51,7 +51,6 @@ onLoad _ = do
  where
   fadeDuration = 6000  -- millisecs
   showSelection _ = do
-    putStrLn "click"
     select "#product-selection" >>= animateTop "0" 500
     height <- body >>= getHeight
     select "#product-frame" >>= animateMarginTop (show height) 500
@@ -152,6 +151,7 @@ addScrollNavigation i element =
         duration  = abs (currentNumber - newNumber) * 1000
     addClass "active-nav" newActive
     animateLeft moveValue duration obj
+    parallaxBubbles i (duration/2)
     let deactivateProductFrame = do
           select "#product-selection" >>= animateTop "0" 500
           height <- body >>= getHeight
@@ -167,9 +167,17 @@ addScrollNavigation i element =
                                  >> removeClass "active-product" obj
                                  >> return ())
                                  1000
-                 else return ()
-    parallaxBubbles i duration
-    return ()
+                 else if currentId == "nav-item4"
+                      -- reset contact site
+                        then do
+                             selectClass "error" >>= hide Slow
+                             select "#message" >>= hide Slow
+                             select "#contact-form" >>= jshow Slow
+                             select "contact-name" >>= setAttr "value" ""
+                             select "contact-mail" >>= setAttr "value" ""
+                             select "contact-msg" >>= setAttr "value" ""
+                             return ()
+                        else return ()
 
 addSlideshow :: Double -> JQuery -> Fay ()
 addSlideshow duration obj = do
