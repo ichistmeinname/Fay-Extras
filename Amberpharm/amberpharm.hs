@@ -52,7 +52,8 @@ onLoad _ = do
   fadeDuration = 6000  -- millisecs
   showSelection _ = do
     select "#product-selection" >>= animateTop "0" 500
-    height <- body >>= getHeight
+    height <- select "#container" >>= getHeight
+    putStrLn (show height)
     select "#product-frame" >>= animateMarginTop (show height) 500
     select "#back-button" >>= animateTop (show height) 500
     return ()
@@ -100,7 +101,7 @@ addProductNavigation _ element = do
     productId <- selectElement element >>= dataAttr "product"
     select productId >>= addClass "active-product"
     -- calculate scroll position and product-frame height
-    height <- body >>= getHeight
+    height <- select "#container" >>= getHeight
     select "#products" >>= setCss "height" (show $ height * (2/3))
     select "#product-frame" >>= setCss "height" (show (height / 2))
     select "#back-button" >>= setCss "top" (show height)
@@ -113,8 +114,6 @@ addProductNavigation _ element = do
     select "#product-selection" >>= animateTop "-400" 500
     select "#back-button" >>= animateTop "-50" 500
     select "#product-frame" >>= animateMarginTop "0" 500
-    -- scroll to product-frame
-    -- body >>= animateScrollTop height 750
     return ()
 
 addProductHover _ element = do
@@ -159,8 +158,9 @@ addScrollNavigation i element =
     parallaxBubbles i duration
     let deactivateProductFrame = do
           select "#product-selection" >>= animateTop "0" 500
-          height <- body >>= getHeight
-          select "#product-frame" >>= animateMarginTop (show height) 500
+          height <- select "#container" >>= getHeight
+          putStrLn (show height)
+          select "#product-frame" >>= animateTop (show height) 500
           select "#back-button" >>= animateTop (show height) 500
     selectClass "active-product" >>= \obj -> do
       currentId <- getAttr "id" currentActive
@@ -178,9 +178,8 @@ addScrollNavigation i element =
                              selectClass "error" >>= hide Slow
                              select "#message" >>= hide Slow
                              select "#contact-form" >>= jshow Slow
-                             select "contact-name" >>= setAttr "value" ""
-                             select "contact-mail" >>= setAttr "value" ""
-                             select "contact-msg" >>= setAttr "value" ""
+                             select "#mail-form" >>=
+                               each (\_ e -> reset e >> return True)
                              return ()
                         else return ()
 
