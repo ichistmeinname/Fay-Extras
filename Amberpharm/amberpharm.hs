@@ -159,8 +159,7 @@ addScrollNavigation i element =
     let deactivateProductFrame = do
           select "#product-selection" >>= animateTop "0" 500
           height <- select "#container" >>= getHeight
-          putStrLn (show height)
-          select "#product-frame" >>= animateTop (show height) 500
+          select "#product-frame" >>= animateMarginTop (show height) 500
           select "#back-button" >>= animateTop (show height) 500
     selectClass "active-product" >>= \obj -> do
       currentId <- getAttr "id" currentActive

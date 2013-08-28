@@ -124,6 +124,9 @@ setTimeout = ffi "setTimeout( %1, %2 )";
 setLocation :: String -> Fay ()
 setLocation = ffi "window.location = %1"
 
+reset :: Element -> Fay ()
+reset = ffi "%1.reset()"
+
 body :: Fay JQuery
 body = select "body"
 

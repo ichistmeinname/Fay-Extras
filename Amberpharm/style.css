@@ -159,32 +159,44 @@ body {
     background-image: url('Wir_ueber_uns/Wir-ueber-uns_Textrahmen.png');
     background-size: 900px;
     width: 900px;
-    height: 330px;
+    height: 339px;
     left: 30%;
     margin-left: -450px;
-    margin-top: -50px;
+    top: 0px;
     z-index: 21;
+}
+
+#about-frame-dummy {
+    position: absolute;
+    width: 875px;
+    height: 289px;
+    left: 30%;
+    margin-left: -450px;
+    top: 25px;
+    z-index: 21;
+    overflow-y: scroll;
 }
 
 #about-text, #about-title {
     position: relative;
-    left: 5%;
     width: 90%;
     font-family: 'Source Sans Pro';
+    left: 50px;
 }
 
 #about-title {
-    top: 7.5%;
+    top: 15px;
     color: #9f9a96;
     font-size: 30pt;
     text-align: center;
 }
 
 #about-text {
-    top: 10%;
+    top: 30px;
     color: #323232;
     font-size: 12pt;
-    text-align: left;
+    text-align: justify;
+    padding-bottom: 25px;
 }
 
 #products {
@@ -331,7 +343,7 @@ body {
     background-size: 300px;
 }
 
-#product1, #product2, #product3 {
+.product-page {
     z-index: 501;
     display: none;
 }
@@ -481,7 +493,7 @@ label {
     height: 330px;
     left: 90%;
     margin-left: -400px;
-    margin-top: -25px;
+    margin-top: -15px;
 }
 
 #impressum-info p, #contact-info p {
@@ -499,6 +511,7 @@ label {
 
 #impressum-text {
     left: 35%;
+    margin-top: -40px;
 }
 
 #impressum-text p {
