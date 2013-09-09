@@ -13,7 +13,7 @@ main = documentReady onReady document
 onReady :: Event -> Fay ()
 onReady _ = do
   -- loading screen
-  selectClass "loading-img" >>= setCss "opacity" "0"
+  selectClass "loading-img" >>= setCss "display" "none"
   addLoadingAnimation 1.0
   selectElement window >>= load onLoad
 
@@ -21,19 +21,20 @@ addLoadingAnimation :: Double -> Fay ()
 addLoadingAnimation i
   | i == 3    = setActive i >> setTimeout (addLoadingAnimation 0) 500
   | i == 0    = do
-    selectClass "loading-img" >>= setCss "opacity" "0"
+    selectClass "loading-img" >>= setCss "display" "none"
     setTimeout (addLoadingAnimation (i+1)) 500
   | otherwise = setActive i >> setTimeout (addLoadingAnimation (i+1)) 500
  where
   setActive i =
-    select ("#loading" ++ (show i)) >>= setCss "opacity" "1"
+    select ("#loading" ++ (show i)) >>= setCss "display" "block"
 
 onLoad :: Event -> Fay ()
 onLoad _ = do
   -- hide loading screen and fade in main page
   obj <- select "#container"
-  select "#loading" >>= fadeOutE 1000 (\_ -> return obj)
-  select "#container" >>= \o -> fadeInE 2000 (\_ -> return o) o
+  select "#loading" >>= \o -> fadeOutE 1000 (\_ -> hide Instantly o >> return o) o
+  select "#container" >>= \o -> fadeInE 2000 (\_ -> jshow Instantly o >> return o) o
+  putStrLn "fade out"
   -- activate home as current navigation item
   select "#nav-item1" >>= addClass "active-nav"
   -- change active navigation after submit contact form
@@ -51,12 +52,7 @@ onLoad _ = do
  where
   fadeDuration = 6000  -- millisecs
   showSelection _ = do
-    select "#product-selection" >>= animateTop "0" 500
-    height <- select "#container" >>= getHeight
-    putStrLn (show height)
-    select "#product-frame" >>= animateMarginTop (show height) 500
-    select "#back-button" >>= animateTop (show height) 500
-    return ()
+    deactivateProductFrame
   addStartValues _ element = do
     object <- selectElement element
     startX <- cssDouble "left" object
@@ -92,7 +88,9 @@ addParallaxEffect navIndex duration _ element = do
   return True
 
 addProductNavigation _ element = do
-  selectElement element >>= click onClick >> return True
+  selectElement element >>= click onClick
+  deactivateProductFrame
+  return True
  where
   onClick _ = do
     -- hide last selected product
@@ -156,11 +154,6 @@ addScrollNavigation i element =
     addClass "active-nav" newActive
     animateLeft moveValue duration obj
     parallaxBubbles i duration
-    let deactivateProductFrame = do
-          select "#product-selection" >>= animateTop "0" 500
-          height <- select "#container" >>= getHeight
-          select "#product-frame" >>= animateMarginTop (show height) 500
-          select "#back-button" >>= animateTop (show height) 500
     selectClass "active-product" >>= \obj -> do
       currentId <- getAttr "id" currentActive
       newId     <- getAttr "id" newActive
@@ -181,6 +174,13 @@ addScrollNavigation i element =
                                each (\_ e -> reset e >> return True)
                              return ()
                         else return ()
+
+deactivateProductFrame :: Fay ()
+deactivateProductFrame = do
+  select "#product-selection" >>= animateTop "0" 500
+  height <- select "#container" >>= getHeight
+  select "#product-frame" >>= animateMarginTop (show height) 500
+  select "#back-button" >>= animateTop (show height) 500
 
 addSlideshow :: Double -> JQuery -> Fay ()
 addSlideshow duration obj = do
