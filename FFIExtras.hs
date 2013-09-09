@@ -72,6 +72,9 @@ animateScale = ffi "\
   \ %3.animate({  'borderSpacing': %1 }, {\
   \ 'step': function(now,fx) {\
      \ %3.css('-webkit-transform','scale('+(now/100)+','+(now/100)+')');\
+     \ %3.css('-moz-transform','scale('+(now/100)+','+(now/100)+')');\
+     \ %3.css('-o-transform','scale('+(now/100)+','+(now/100)+')');\
+     \ %3.css('-ms-transform','scale('+(now/100)+','+(now/100)+')');\
    \ },duration:'slow'},'linear')"
 
 animateLeftTop :: String -> String -> Double -> JQuery -> Fay ()
@@ -124,7 +127,8 @@ setTimeout = ffi "setTimeout( %1, %2 )";
 setLocation :: String -> Fay ()
 setLocation = ffi "window.location = %1"
 
-reset :: Element -> Fay ()
+reset
+ :: Element -> Fay ()
 reset = ffi "%1.reset()"
 
 body :: Fay JQuery
