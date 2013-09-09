@@ -4,7 +4,7 @@
   $mail = $_POST['mail'];
   $msg = $_POST['msg'];
 
-  $to = "info@amberpharm.de";
+  $to = "info@amberpharm.net";
   $subject = "Amberpharm Kontaktformular";
 
   /* $umlautArray = Array(”/ä/”,”/ö/”,”/ü/”,”/Ä/”,”/Ö/”,”/Ü/”,”/ß/”); */

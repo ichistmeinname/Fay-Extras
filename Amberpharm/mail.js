@@ -30,9 +30,10 @@ $(document).ready( function() {
           $("#msg-error").css("display","none");
           $("#contact-msg").css("background-color","lightgrey");
       }
+      var url = document.URL;
       $.ajax({
       type: "POST",
-      url: "http://carinamitc.de/Amberpharm/mail.php",
+      url: url + "/mail.php",
       data: $("#mail-form").serialize(),
       success: function(data) {
           if (data == 1) { 
