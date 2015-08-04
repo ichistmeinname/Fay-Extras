@@ -32,16 +32,23 @@ body {
     position: fixed;
     background-repeat: no-repeat;
     background-position: center;
-    height: 480px;
-    width: 840px;
     left: 50%;
-    margin-left: -420px;
-    margin-top: 20px;
 }
 
 #gallery-box {
     position: fixed;
     background-image: url('images/gallery/rahmen.png');
+    height: 480px;
+    width: 840px;
+    margin-left: -420px;
+    margin-top: 20px;
+}
+
+#gallery-picture {
+    height: 450px;
+    width: 750px;
+    margin-left: -375px;
+    margin-top: 10px;
 }
 
 .gallery-link {
