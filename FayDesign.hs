@@ -5,6 +5,7 @@ import ConstantsAndHelpers
 import Prelude
 import JQuery
 import FFIExtras
+import Fay.Text (Text, pack)
 
 -- selectId = select . (:) '#'
 
@@ -38,7 +39,7 @@ import FFIExtras
 --   preloadImage (path ++ ".png")
 
 addNavigationSlider i element = do
-  hoverObject <- selectElement element
+  hoverObject <- select element
   addHover hoverObject (addNavSlide) (removeNavSlide)
  where
   addNavSlide object _  =
@@ -50,7 +51,7 @@ addNavigationSlider i element = do
        else removeClass navSlideClass object >> return ()
 
 addChangeImageOnHover mPrefix i element = do
-  hoverObject <- selectElement element
+  hoverObject <- select element
   addHover hoverObject (onChange mouseEnterData) (onChange mouseLeaveData)
  where
   onChange pictureData pictureObject _   = do
@@ -62,11 +63,12 @@ addChangeImageOnHover mPrefix i element = do
     setBackgroundImage imageOver pictureObject
 
 addResizeEffect i element = do
-  resizeObject <- selectElement element
+  resizeObject <- select element
   addHover resizeObject (resize addClass) (resize removeClass)
  where
+  resize :: (Text -> JQuery -> Fay JQuery) -> JQuery -> Event -> Fay ()
   resize updateClass _ _ = do
-    resizeObject <- selectElement element
+    resizeObject <- select element
     hoverClassName <- dataAttr hoverClassData resizeObject
-    updateClass hoverClassName resizeObject
+    updateClass (pack hoverClassName) resizeObject
     return ()

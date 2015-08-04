@@ -4,43 +4,70 @@ module ConstantsAndHelpers where
 
 import Prelude
 import JQuery
+import Fay.Text (Text, pack, unpack)
 
-type IdName = String
+type IdName = Text
 
 preloadId :: IdName
-preloadId = "#preload"
+preloadId = pack "#preload"
 
-textID :: IdName
-textID = "#text"
+textId :: IdName
+textId = pack "#text"
 
-type Class = String
+galleryPictureId :: IdName
+galleryPictureId = pack "#gallery-picture"
 
+contentId :: IdName
+contentId = pack "#content"
+
+contentIdA :: IdName
+contentIdA = pack "#content>a"
+
+mkDataAttr :: Text -> Text
+mkDataAttr = pack . ("data-" ++) . unpack
+
+dataCategory :: Text
+dataCategory = pack "data-category"
+         
+type Attr = Text
+type Class = Text
+type ClassName = String
+
+mkClass :: Text -> Text
+mkClass = pack . ('.' :) . unpack
+
+arrowClass :: Class
+arrowClass = pack "arrow"
+          
 linkClass :: Class
-linkClass = "link"
+linkClass = pack "link"
 
 movableClass :: Class
-movableClass = "movable"
+movableClass = pack "movable"
 
 navItemClass :: Class
-navItemClass = "nav-item"
+navItemClass = pack "nav-item"
 
 activeClass :: Class
-activeClass = "active"
+activeClass = pack "active"
+
+activeNavClass :: Class
+activeNavClass = pack "activeNav"
 
 blackWhiteClass :: Class
-blackWhiteClass = "black_white"
+blackWhiteClass = pack "black_white"
 
 bubbleImageClass :: Class
-bubbleImageClass = ".bubble"
+bubbleImageClass = pack ".bubble"
 
 thumbnailClass :: Class
-thumbnailClass = "thumbnail"
+thumbnailClass = pack "thumbnail"
 
 scaleZeroClass :: Class
-scaleZeroClass = "scaleZero"
+scaleZeroClass = pack "scaleZero"
 
 navSlideClass :: Class
-navSlideClass = "navSlide"
+navSlideClass = pack "navSlide"
 
 type DataName = String
 

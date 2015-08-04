@@ -5,14 +5,15 @@ module FFIExtras where
 import Prelude
 import FFI
 import JQuery
+import Fay.Text (Text, pack)
 
 searchQuery :: Fay String
 searchQuery = ffi "$(location).attr('search')"
 
-get :: String -> (String -> Fay ()) -> (String -> Fay ()) ->  Fay ()
+get :: Text -> (Text -> Fay ()) -> (Text -> Fay ()) ->  Fay ()
 get = ffi "jQuery.get(%1).done(%2).fail(%3)"
 
-appendString :: String -> JQuery -> Fay ()
+appendString :: Text -> JQuery -> Fay ()
 appendString = ffi "%2.append(%1)"
 
 prependString :: String -> JQuery -> Fay ()
@@ -21,7 +22,7 @@ prependString = ffi "%2.prepend(%1)"
 attrDouble :: String -> JQuery -> Fay Double
 attrDouble = ffi "%2.attr(%1)"
 
-setDataAttr :: String -> String -> JQuery -> Fay ()
+setDataAttr :: Text -> Text -> JQuery -> Fay ()
 setDataAttr = ffi "%3.data(%1, %2)"
 
 setDataAttrDouble :: String -> Double -> JQuery -> Fay ()
@@ -132,7 +133,7 @@ reset
 reset = ffi "%1.reset()"
 
 body :: Fay JQuery
-body = select "body"
+body = select (pack "body")
 
 window :: Element
 window = ffi "window"

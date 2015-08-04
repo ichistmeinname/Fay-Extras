@@ -6,13 +6,15 @@ import Prelude
 import JQuery
 import ConstantsAndHelpers
 import FFIExtras
+import Fay.Text.Type (Text, pack, unpack)
 
 data Visibility = Always | Range Double Double
 
 data ScrollDir = Horizontal | Vertical
 
-selectClass :: String -> Fay JQuery
-selectClass className = select ('.':className)
+selectClass :: Class -> Fay JQuery
+selectClass className = select (mkClass className)
+
 
 -- Adds a hyperref for the given element as an onclick-action
 -- Example:
@@ -26,9 +28,9 @@ selectClass className = select ('.':className)
 --       return ()
 addHref :: Double -> Element -> Fay Bool
 addHref _ element = do
-  object <- selectElement element
+  object <- select element
   href <- dataAttr hrefData object
-  clickObject <- dataAttr clickData object >>= select
+  clickObject <- dataAttr clickData object >>= select . pack
   click (onClick href) clickObject
   return True
  where
@@ -52,7 +54,7 @@ addActive :: (JQuery -> Fay ())
           -> Element
           -> Fay Bool
 addActive actionWithActive actionWithObj _ element =
-  selectElement element >>= click onClick >> return True
+  select element >>= click onClick >> return True
  where
    onClick _ = do
      -- "unmark" current active object
@@ -60,8 +62,8 @@ addActive actionWithActive actionWithObj _ element =
      removeClass activeClass activeObject
      actionWithActive activeObject
      -- "mark" current active object
-     obj <- selectElement element
-     addClass "active" obj
+     obj <- select element
+     addClass activeClass obj
      -- do some actions
      actionWithObj obj
 
@@ -83,7 +85,7 @@ updateNavItem :: Double
               -> Element
               -> Fay Bool
 updateNavItem pos activateAction deactiveAction _ element = do
-  navObject <- selectElement element
+  navObject <- select element
   start <- dataAttrDouble startData navObject
   end <- dataAttrDouble endData navObject
   if pos `isInRange` (start,end)
@@ -104,16 +106,16 @@ isInRange pos (start, end) = pos >= start && pos <= end
 -- Fay Code
 --    onScroll :: Event -> Fay ()
 --    onScroll _ = do
---      win <- selectElement window
+--      win <- select window
 --      pos <- getScrollTop win
 --      movableObjects <- select ".movable"
 --      each (addParallaxEffect Horizontal pos) movableObjects
 --      return ()
 --    main :: Fay ()
---    main = selectElement window >>= scroll onScroll
+--    main = select window >>= scroll onScroll
 addParallaxEffect :: ScrollDir -> Double -> Double -> Element -> Fay Bool
 addParallaxEffect dir pos _ element = do
-  object <- selectElement element
+  object <- select element
   speed <- dataAttrDouble speedData object
   offset <- dataAttrDouble offsetData object
   vis <- visibility object
@@ -148,14 +150,14 @@ visibility obj = do
 --  corresponding scrollPos. ScrollDir indicates the scrolling direction.
 addScrollAnimation :: ScrollDir -> Double -> Double -> Element -> Fay Bool
 addScrollAnimation dir scrollSpeed _ element =
-  selectElement element >>= click onClick >> return True
+  select element >>= click onClick >> return True
  where
   onClick _ = do
     bodyElem <- body
     oldPosition <- case dir of
       Vertical -> getScrollTop bodyElem
       Horizontal -> getScrollLeft bodyElem
-    object <- selectElement element
+    object <- select element
     position <- dataAttrDouble scrollPositionData object
     let duration = abs (oldPosition - position) * scrollSpeed
         scrollTo = case dir of
@@ -192,10 +194,12 @@ addHover :: JQuery
          -> Fay Bool
 addHover object enterAction leaveAction = do
   hoverName <- dataAttr hoverObjectData object
-  hoverObject <- select hoverName
-  hoverEnterLeave (enterAction object)
-                  (leaveAction object)
-                  hoverObject
+  hoverObject <- select (pack hoverName)
+  mouseenter (enterAction object) hoverObject
+  mouseleave (leaveAction object) hoverObject
+  -- hoverEnterLeave (enterAction object)
+                  -- (leaveAction object)
+                  -- hoverObject
   return True
 
 -- Preloads image for the given picturePath.
@@ -206,3 +210,34 @@ preloadImage picturePath = do
   prependString imgSrc divPreload
  where
   imgSrc = "<img src='" ++ picturePath ++ "' alt='preload'/>"
+
+addChangeMarginHover :: Double -> Element -> Fay Bool                       
+addChangeMarginHover _ element = do
+  hoverObject <- select element
+  addHover hoverObject (addNavSlide) (removeNavSlide)
+ where
+  addNavSlide object _  = do
+    addClass navSlideClass object
+    return ()
+  removeNavSlide object _ = do
+    hasActiveClass <- hasClass activeClass object
+    if hasActiveClass
+       then return ()
+       else removeClass navSlideClass object >> return ()
+addBubbleEffect :: Double -> Element -> Fay Bool
+addBubbleEffect _ element = do
+  bubbleObject <- select element
+  addHover bubbleObject (changeBubble addClass) (changeBubble removeClass)
+ where
+  changeBubble :: (Text -> JQuery -> Fay JQuery) -> JQuery -> Event -> Fay ()
+  changeBubble updateClass _ _ = do
+    bubbleObject <- select element
+    hoverClassName <- dataAttr hoverClassData bubbleObject
+    updateClass (pack hoverClassName) bubbleObject
+    return ()
+
+turnOffBubbleEffect :: Double -> Element -> Fay Bool
+turnOffBubbleEffect _ element = do
+  object <- select element
+  removeClass scaleZeroClass object
+  return True
