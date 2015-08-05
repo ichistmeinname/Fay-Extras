@@ -101,7 +101,10 @@ play = ffi "%1['get'](0)['play']()"
 
 pause :: JQuery -> Fay ()
 pause = ffi "%1['get'](0)['pause']()"
-         
+
+touchMove :: (Event -> Fay ()) -> JQuery -> Fay ()
+touchMove = ffi "%2['touchmove'](%1)"
+
 triggerScroll :: JQuery -> Fay ()
 triggerScroll = ffi "%1['trigger']('scroll')"
 
