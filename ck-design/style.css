@@ -24,7 +24,7 @@ body {
 
 #vita {
     width: 100%;
-    height: 925px;
+    height: 1050px;
 }
 
 #vita_box {
@@ -108,6 +108,12 @@ body {
     background-size: contain;
 }
 
+@media (max-width: 768px) {
+    #vita_title {
+        top: 800;
+    }
+}
+
 @media (max-width: 348px) {
     #vita_title {
         margin-left: -30px;
@@ -115,7 +121,7 @@ body {
 }
 
 #portfolio {
-    height: 975px;
+    height: 850px;
     width: 100%;
 }
 
