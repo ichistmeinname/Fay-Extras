@@ -15,9 +15,8 @@ main = do
   win <- select window
   width <- windowWidth win
   -- fix: max-device-width instead of width
-  if width > 768
-    then scroll onScroll win
-    else touchMove onScroll win
+  scroll onScroll win
+  touchMove onScroll win
   documentReady onReady document
 
 onReady :: Event -> Fay ()
@@ -25,7 +24,6 @@ onReady _ = do
   win <- select window
   triggerScroll win
   width <- windowWidth win
-  bubbleImages <- select bubbleImageClass
   navigationElements <- selectClass navItemClass
   each (addScrollAnimation Vertical scrollSpeed) navigationElements
   each (addActive deactivateNavSlide (const (return ()))) navigationElements
@@ -43,6 +41,7 @@ onScroll :: Event -> Fay ()
 onScroll _ = do
   win <- select window
   pos <- getScrollTop win
+  putStrLn ("pos: " ++ show pos)
   movableObjects <- selectClass movableClass
   each (addParallaxEffect Vertical pos) movableObjects
   return ()
