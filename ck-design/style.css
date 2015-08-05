@@ -110,7 +110,8 @@ body {
 
 @media (max-width: 768px) {
     #vita_title {
-        top: 800;
+        position: absolute;
+        top: -250px;
     }
 }
 
@@ -123,6 +124,7 @@ body {
 #portfolio {
     height: 850px;
     width: 100%;
+    position: relative;
 }
 
 #portfolio_title {
@@ -135,6 +137,13 @@ body {
     background-image: url('images/caption/portfolio.png');
     background-repeat: no-repeat;
     background-size: contain;
+}
+
+@media (max-width: 768px) {
+    #portfolio_title {
+        position: absolute;
+        top: -250px;
+    }
 }
 
 @media (max-width: 791px) {
@@ -162,6 +171,7 @@ body {
 #contact {
     width: 100%;
     height: 600px;
+    position: relative;
 }
 
 #contact_title {
@@ -181,6 +191,14 @@ body {
         margin-left: -45%;
     }
 }
+
+@media (max-width: 768px) {
+    #contact_title {
+        position: absolute;
+        top: -250px;
+    }
+}
+
 
 #contact_text{
     width: 194px;
@@ -242,6 +260,7 @@ a:hover.powered {
 
 #impressum {
     width: 100%;
+    position: relative;
 }
 
 #impressum_title {
@@ -259,6 +278,13 @@ a:hover.powered {
 @media (max-width: 913px) {
     #impressum_title {
         margin-left: -45%;
+    }
+}
+
+@media (max-width: 768px) {
+    #impressum_title {
+        position: absolute;
+        top: -250px;
     }
 }
 
