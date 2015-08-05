@@ -45,6 +45,9 @@ linkClass = pack "link"
 movableClass :: Class
 movableClass = pack "movable"
 
+galleryNavClass :: Class
+galleryNavClass = pack "gallery-navigation"
+
 navItemClass :: Class
 navItemClass = pack "nav-item"
 

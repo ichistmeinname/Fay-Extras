@@ -25,7 +25,7 @@ attrDouble = ffi "%2.attr(%1)"
 setDataAttr :: Text -> Text -> JQuery -> Fay ()
 setDataAttr = ffi "%3.data(%1, %2)"
 
-setDataAttrDouble :: String -> Double -> JQuery -> Fay ()
+setDataAttrDouble :: Text -> Int -> JQuery -> Fay ()
 setDataAttrDouble = ffi "%3.data(%1, %2)"
 
 dataAttr :: String -> JQuery -> Fay String
@@ -96,6 +96,12 @@ animateScrollLeft = ffi "%3.animate({'scrollLeft': %1}, %2)"
 unbind :: String -> JQuery -> Fay ()
 unbind = ffi "%2.unbind(%1)"
 
+play :: JQuery -> Fay ()
+play = ffi "%1['get'](0)['play']()"
+
+pause :: JQuery -> Fay ()
+pause = ffi "%1['get'](0)['pause']()"
+         
 triggerScroll :: JQuery -> Fay ()
 triggerScroll = ffi "%1['trigger']('scroll')"
 
