@@ -13,60 +13,49 @@ media="screen" />
 <script type="text/javascript" src="jquery.min.js"></script>
 <script type="text/javascript" src="gallery.js"></script>
 <div id="content">
-  <div id="logo" class="link" data-href="index.html" data-click="#logo"></div>
-  <div id="editorial" class="gallery" data-category="editorial"
-       data-index="" data-descr=""></div>
-  <div id="ci" class="gallery" data-category="ci" data-index="" data-descr=""></div>
-  <div id="multimedia" class="gallery" data-category="multimedia"
-       data-index"" data-descr=""></div>
-  <div id="etc" class="gallery" data-category="etc" data-index="" data-descr=""></div>
-  <div id="gallery-box" class="gallery">
-    <div id="gallery-picture" class="gallery" data-category="editorial"></div>
+<div id="header">
+  <div id="logo" class="link" data-href="index.html"
+    data-click="#logo"></div>
+  <div id="top-bar">
+    <div id="ci" class="gallery-navigation"></div>
+    <div id="web" class="gallery-navigation"></div>
+    <div id="etc" class="gallery-navigation"></div>
+    <div style="clear:both"></div>
+  </div>
+ <div style="clear:both"></div>
+</div>
+<div id="center">
+  <div id="left-bar">
+  <div id="back-nav" class="link"
+    data-href="index.html" data-click="#back-nav">
+  </div>
+  <div style="clear: both"></div>
+  <div id="text">
+    <p id="caption1"></p>
+    <p id="caption2"></p>
+    <p id="description"></p>
+  </div>
+</div>
+<div id="gallery-box">
+    <div id="gallery-picture" class="gallery" data-category="ci"></div>
     <div id="leftarrow" class="arrow"></div>
     <div id="rightarrow" class="arrow"></div>
-    <div id="text"></div>
-  </div>
-  <div id="thumbnail">
-    <div id="thumbnail1" class="thumbnail scaleThreeForth"
-      data-hoverobj="#thumbnail1" data-hoverclass="thumbnailHover"
-      data-info="name1"></div>
-    <div id="thumbnail2" class="thumbnail scaleThreeForth"
-      data-hoverobj="#thumbnail2" data-hoverclass="thumbnailHover"
-      data-info="name2"></div>
-    <div id="thumbnail3" class="thumbnail scaleThreeForth"
-      data-hoverobj="#thumbnail3" data-hoverclass="thumbnailHover"
-      data-info="name3"></div>
-    <div id="thumbnail4" class="thumbnail scaleThreeForth"
-      data-hoverobj="#thumbnail4" data-hoverclass="thumbnailHover"
-      data-info="name4"></div>
-    <div id="thumbnail5" class="thumbnail scaleThreeForth"
-      data-hoverobj="#thumbnail5" data-hoverclass="thumbnailHover"
-      data-info="name5"></div>
-    <div id="thumbnail6" class="thumbnail scaleThreeForth"
-      data-hoverobj="#thumbnail6" data-hoverclass="thumbnailHover"
-      data-info="name6"></div>
-    <div id="thumbnail7" class="thumbnail scaleThreeForth"
-      data-hoverobj="#thumbnail7" data-hoverclass="thumbnailHover"
-      data-info="name7"></div>
+    <div id="spot1" class="play-button"></div>
+    <div id="spot2" class="play-button"></div>
+    <div id="spot3" class="play-button"></div>
+    <div id="spot4" class="play-button"></div>
+    <div id="spot5" class="play-button"></div>
   </div>
 </div>
 <div id="line"></div>
-  
-<div id="nav">
-  <ul>
-    <li><div id="editorial-nav" class="nav-item gallery-navigation"
-             data-hoverobj="#editorial-nav"></div></li>
-    <li><div id="multimedia-nav" class="nav-item gallery-navigation"
-             data-hoverobj="#multimedia-nav"/></li>
-    <li><div id="ci-nav" class="nav-item gallery-navigation"
-             data-hoverobj="#ci-nav"/></li>
-    <li><div id="etc-nav" class="nav-item gallery-navigation"
-             data-hoverobj="#etc-nav"/></li>
-    <li><div id="nav-gallery-item5" class="gallery-navigation link"
-             data-href="index.html" data-click="#nav-gallery-item5"/></li>
-  </ul>
-</div>
-<div id="preload">
+<div id="preload" style="display: none">
+<div id="audio">
+  <audio id="audio-1" src="radio/1.mp3" type="audio/mpeg" "preload=auto"></audio>
+  <audio id="audio-2" src="radio/2.mp3" type="audio/mpeg" "preload=auto"></audio>
+  <audio id="audio-3" src="radio/3.mp3" type="audio/mpeg" "preload=auto"></audio>
+  <audio id="audio-4" src="radio/4.mp3" type="audio/mpeg" "preload=auto"></audio>
+  <audio id="audio-5" src="radio/5.mp3" type="audio/mpeg" "preload=auto"></audio>
+  </div>
 </div>
 </body>
 </html>

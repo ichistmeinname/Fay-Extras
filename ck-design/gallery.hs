@@ -17,201 +17,186 @@ main = do
 onReady :: Event -> Fay ()
 onReady _ = do
   win <- select window
-  width <- windowWidth win
-  navigationElements <- selectClass navItemClass
-  each (addActive changeBGImage changeBGImage) navigationElements
+  spotObjs <- select (pack ".play-button")
+  each addClick spotObjs
+  gallery <- select galleryPictureId
+  defaultCategoryString <- dataAttr "category" gallery
+  let defaultCategory = readCategory defaultCategoryString
+  navObj <- select (pack ("#" ++ defaultCategoryString))
+  addClass activeClass navObj
+  galleryElements <- selectClass galleryNavClass
+  each (\d -> addChangeCategory (round d)) galleryElements
+  each (addActive noAction noAction) galleryElements
   linkElements <- selectClass linkClass
   each addHref linkElements
-  each addChangeCategory navigationElements
-  initiateGallery
+  initiateGallery defaultCategory
   return ()
+ where
+  addClick idx element =
+    select element >>= click (\_ -> select (pack ("#audio-" ++ show (idx+1))) >>= play)
+     >> return True
+  noAction _ = return ()
   
+initiateGallery defaultCategory = do
+  preloadGalleryImages 0 defaultCategory
+  setupGallery 0 defaultCategory
 
-initiateGallery = do
-  query <- searchQuery
-  choseDefaultCategory
-  -- if null query
-  --  then choseDefaultCategory
-  --  else do
-  --    let currentCategory = tail $ dropWhile (isParam) query
-  --    if null currentCategory
-  --     then choseDefaultCategory
-  --     else preloadGallery [currentCategory]
+-- preloadGallery names =
+--   mapM_ (preloadGalleryImage False 1) names
+
+preloadGalleryImages :: Int -> Category -> Fay ()
+preloadGalleryImages _ cat = do
+  mapM_ preloadGalleryImage
+        (imagesForCategory cat)
  where
-   isParam char = not (char == '=')
-   choseDefaultCategory = do
-     gallery <- select galleryPictureId
-     defaultCategory <- dataAttr "category" gallery
-     preloadGalleryImage True 1.0 defaultCategory
+   preloadGalleryImage name = do
+     object <- select (pack "#preload")
+     appendString (pack (preloadText cat name)) object
+     return ()
 
-preloadGallery names =
-  mapM_ (preloadGalleryImage False 1.0) names
-
-preloadGalleryImage :: Bool -> Double -> String -> Fay ()
-preloadGalleryImage init index name = do
-  get' (path name (show index) ".jpg") (doneCallback) (failCallback)
-  return ()
- where
-   doneCallback _ = do
-     putStrLn (path name (show index) ".suffix")
-     preloadImage (path name (show index) ".jpg")
-     preloadImage (path name (show index) ".png")
-     preloadGalleryImage init (index + 1) name
-   failCallback _ = do
-     object <- select galleryPictureId
-     setAttr (mkDataAttr (pack name)) (pack (show (index - 2))) object
-     if init then do
-        let categories = deleteFromList name galleryCategories
-        preloadGallery categories
-        setupGallery name
-      else return ()
-
-deleteFromList elem [] = []
-deleteFromList elem (x:xs) | x == elem = deleteFromList elem xs
-deleteFromList elem (x:xs) = x: deleteFromList elem xs
-
+addChangeCategory :: Int -> Element -> Fay Bool
 addChangeCategory index element = do
   let newCategory = case index of
-        0 -> "editorial"
-        1 -> "multimedia"
-        2 -> "ci"
-        otherwise -> "etc"
+        0 -> CI
+        1 -> Web
+        _ -> Etc
   object <- select element
   click (onClick newCategory) object
   return True
- where onClick category _ = setupGallery category
+ where onClick category _ = setupGallery 0 category
 
-setupGallery category = do
+
+setupGallery :: Int -> Category -> Fay ()
+setupGallery index category = do
   gallery <- select galleryPictureId
-  setAttr dataCategory (pack category) gallery
-  updateGallery category
-  active <- select (mkClass activeNavClass)
-  removeClass navSlideClass active
-  removeClass activeNavClass active
-  each addChangeMarginHover active
-  navObject <- select categoryID
-  turnOffHover navObject
-  addClass activeNavClass navObject
+  setAttr dataCategory (pack (showCategory category)) gallery
+  setDataAttrDouble (pack "index") index gallery
+  updateGallery index category
+  return ()
+
+updateGallery :: Int -> Category -> Fay ()
+updateGallery index cat = do
+  if cat == Etc && index == 4
+    then select (pack ".play-button")
+          >>= each (\_ e -> select e >>= unhide >> return True) --(hideButtons False)
+    else select (pack ".play-button")
+           >>= each (\_ e -> select e >>=  hide Instantly >> return True) -- (hideButtons True)
+  let catImages = imagesForCategory cat
+  setGalleryPicture ("images/gallery/" ++ showCategory cat ++ "/" ++ (catImages !! index))
+  captionAndDescription ("images/gallery/" ++ showCategory cat ++ "/" ++ show (index+1) ++ ".html")
+  updateArrowNavigation cat index
   return ()
  where
-   categoryID = pack ("#" ++ category ++ "-nav")
+  hideButtons bool _ e =
+    let prop = if bool then "none" else "block"
+    in select e >>= setAttr (pack "display") (pack prop) >> return True
 
-updateGallery category = do
-  setGalleryPicture (path category "1" ".jpg")
-  captionAndDescription (path category "1" ".html")
-  setGalleryPictureHref (path category "1" "-link.html")
-  updateArrowNavigation category 0
-  putStrLn "updateGallery"
-
-
--- addThumbnailEffects dir index element = do
---   galleryObject <- select "#gallery-picture"
---   countString <- getAttr ("data-"++dir) galleryObject
---   count <- attrDouble ("data-"++dir) galleryObject
---   if null countString
---    then get (path dir name ".png") doneCallback (\e -> failCallback)
---          >> return ()
---    else if (index <= count)
---     then get (path dir name ".png") doneCallback emptyCallback >> return ()
---     else failCallback
---   return True
---  where
---    name = show (index+1)
---    doneCallback _ = do
---      addBubbleEffect index element
---      addThumbNavigation dir index element
---    failCallback = do
---      object <- select element
---      setBackgroundImage "none" object
---      turnOffHover object
---      turnOffClick object
-
--- addThumbNavigation :: String -> Double -> Element -> Fay ()
--- addThumbNavigation dir index element = do
---   object <- select element
---   setThumbnailPicture (path dir name ".png") object
---   turnOffClick object
---   click (onThumbnailClick dir index element) object
---   return ()
---  where
---    name = show (index+1)
-
-data Arrow = Left | Right
-
-addArrowNavigation :: String -> Double -> Element -> Fay Bool
-addArrowNavigation dir index element = do
+addArrowNavigation :: Category -> Double -> Element -> Fay Bool
+addArrowNavigation cat dir element = do
    galleryPicture <- select galleryPictureId
    pictureIndexStr <- dataAttr "index" galleryPicture
-   let pictureIndex = readPrec 0 pictureIndexStr
-   putStrLn "Arrow"
-   print pictureIndex
+   pictureIndex' <- dataAttrDouble "index" galleryPicture
+   let pictureIndex = round pictureIndex'
    object <- select element
    turnOffClick object
-   max <- dataAttrDouble dir galleryPicture
-   case index of
-     0 -> if outOfLeftBounds pictureIndex then return ()
-          else arrowClick (pictureIndex - 1) object
-     1 -> if outOfRightBounds pictureIndex max then return ()
-          else arrowClick (pictureIndex - (-1)) object
+   let newIndex = case dir of
+                      0 -> pictureIndex - 1
+                      1 -> pictureIndex + 1
+   case dir of
+     0 -> if outOfLeftBounds newIndex then arrowClick (Just (prevCat cat))
+                                                      (length (imagesForCategory (prevCat cat)) - 1)
+                                                      object
+          else arrowClick Nothing newIndex object
+     1 -> if outOfRightBounds newIndex then arrowClick (Just (nextCat cat)) 0 object
+          else arrowClick Nothing newIndex object
    return True
  where
-   arrowClick page obj = click (onThumbnailClick dir page element) obj
-                         >> return ()
-   outOfLeftBounds  = (<=) 0
-   outOfRightBounds = (>=)
+   arrowClick Nothing pIndex obj = click (\_ -> updateGallery pIndex cat) obj >> return ()
+   arrowClick (Just nCat) pIndex obj = click (\_ -> changeCategory nCat >> updateGallery pIndex nCat) obj
+                                       >> return ()
+   changeCategory c = select (pack ("#" ++ showCategory c)) >>= trigger (pack "click")
+   outOfLeftBounds  = (< 0)
+   outOfRightBounds = (> (length (imagesForCategory cat) - 1))
 
-onThumbnailClick :: String -> Double -> Element -> Event -> Fay ()
-onThumbnailClick dir index element _ = do
-  setGalleryPicture (path dir name "jpg")
-  captionAndDescription name
-  setGalleryPictureHref (path dir name "html")
-  updateArrowNavigation dir index
-  return ()
- where name = show (index + 1)
+nextCat CI  = Web
+nextCat Web = Etc
+nextCat Etc = CI
+
+prevCat CI = Etc
+prevCat Web = CI
+prevCat Etc = Web
 
 updateArrowNavigation dir index = do
-  putStrLn "updateArrow"
   object <- select galleryPictureId
-  setAttr (mkDataAttr (pack "index")) (pack (show index)) object
-  arrowElements <- select arrowClass
+  setDataAttrDouble (pack "index") index object
+  arrowElements <- select (mkClass arrowClass)
   each (addArrowNavigation dir) arrowElements
 
-setGalleryPictureHref htmlPath =
-  get' htmlPath (doneCallback) (failCallback)
- where
-   doneCallback htmlString = do
-     object <- select contentId
-     appendString htmlString object
-     return ()
-   failCallback _ = do
-     object <- select contentIdA
-     remove object
-     return ()
-
-captionAndDescription categoryName = do
-  get' (categoryName ++ ".html") doneCallback emptyCallback
+captionAndDescription path = do
+  get' path doneCallback emptyCallback
  where
    doneCallback answer = do
      object <- select textId
      setHtml answer object
      return ()
+   get' str = get (pack str)
+  -- tObj <- select (pack "#text")
+  -- c1 <- select (pack "#caption1>p")
+  -- c2 <- select (pack "#caption2>p")
+  -- descr <- select (pack "#description>p")
+  -- appendString (pack (preloadText cat name)) c1
+  -- appendString (pack (preloadText cat name)) c2
+  -- appendString (pack (preloadText cat name)) descr
+  -- get path
+  -- appendString (pack (preloadText cat name)) tObj
 
-setGalleryPicture jpgPath = do
+setGalleryPicture pngPath = do
   object <- select galleryPictureId
-  setBackgroundImage jpgPath object
+  setBackgroundImage pngPath object
 
-
--- Helpers
-
-get' :: String -> (Text -> Fay ()) -> (Text -> Fay ()) -> Fay ()
-get' str = get (pack str)
-
-galleryPrefix :: String
-galleryPrefix     = "gallery/"
-
-path :: String -> String -> String -> String
-path dir name suffix =
-  galleryPrefix ++ dir ++ "/" ++ name ++ suffix
 
 galleryCategories :: [String]
-galleryCategories = ["ci","etc","editorial","multimedia"]
+galleryCategories = ["ci","etc","web"]
+
+data Category = CI | Etc | Web
+ deriving Eq
+
+readCategory str = case str of
+                         "ci"  -> CI
+                         "etc" -> Etc
+                         "web" -> Web
+
+showCategory CI  = "ci"
+showCategory Etc = "etc"
+showCategory Web = "web"
+
+imagesForCategory :: Category -> [String]
+imagesForCategory CI  = ciImages
+imagesForCategory Etc = etcImages
+imagesForCategory Web = webImages
+
+ciImages :: [String]
+ciImages = [ "1_backpackers.png"
+           , "2_tinkerbelle.png"
+           , "3_mybiostoff.png"
+           , "4_Schwanthalerhoehe.png"
+           , "5_LevonSupreme.png"
+           , "6_reisumdiewelt.png" ]
+
+webImages :: [String]
+webImages = ["1_NOI.png", "2_AGde.png", "3_redkiwi.png"]
+
+etcImages :: [String]
+etcImages = [ "1_Hanau1.png"
+            , "2_Hanau2.png"
+            , "3_Hanau3.png"
+            , "4_FGB1.png"
+            , "5_Radio.png"
+            , "6_FGB2.png"
+            , "7_Waterfall.png"
+            , "8_Hochzeit.png"
+            , "9_Hyundai.png"
+            , "10_Sensuade.png" ]
+
+preloadText :: Category -> String -> String
+preloadText cat name= "<img src='images/gallery/" ++ showCategory cat ++ "/" ++ name ++ "' alt='preload'>"
