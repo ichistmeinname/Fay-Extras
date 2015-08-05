@@ -15,7 +15,9 @@ main = do
   win <- select window
   width <- windowWidth win
   -- fix: max-device-width instead of width
-  when (width > 768) (scroll onScroll win)
+  if width > 768
+    then scroll onScroll win
+    else touchMove onScroll win
   documentReady onReady document
 
 onReady :: Event -> Fay ()
