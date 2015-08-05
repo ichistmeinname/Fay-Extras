@@ -1,17 +1,37 @@
+html {
+    overflow-x: hidden;
+    width:100%;
+}
+
 body {
     background-color: white;
     background-image: url('images/body.png');
     background-repeat: no-repeat;
     background-position: 50%;
+    width: 100%;
     height: 3900px;
-    width: 1150px;
+    margin: 0;
+}
+
+#content {
+    width: 100%;
+}
+
+#logo {
+    height: 877px;
+    width: 100%;
 }
 
 #vita {
-    position: absolute;
+    width: 100%;
+    height: 925px;
+}
+
+#vita_box {
+    width: 860px;
     left: 50%;
-    top: 886px;
-    margin-left: 100px;
+    margin-left: -333px;
+    position: relative;
 }
 
 #picture {
@@ -19,17 +39,13 @@ body {
     background-repeat: no-repeat;
     height: 303px;
     width: 312px;
-    position: absolute;
-    margin-left: -433px;
+    float: left;
 }
 
 #vita_text {
-    background-repeat: no-repeat;
-    height: 287px;
     width: 250px;
-    position: absolute;
-    top: -15px;
-    margin-left: -109px;
+    float: left;
+    margin-left: 10px;
 }
 
 #vita_text_title>p {
@@ -37,9 +53,10 @@ body {
     font-family: Helvetica;
     color: rgb(145,147,150);
     text-align: left;
+    margin-top: 0;
 }
 
-#vita_text>p{
+#vita_text>p {
     font-size: 11;
     font-family: Verdana;
     color: rgb(115,117,120);
@@ -47,27 +64,57 @@ body {
     margin-top: -5px;
 }
 
+@media (max-width: 992px) {
+    #vita_text>p {
+        font-size: 13;
+    }
+}
+
+@media (max-width: 768px) {
+    #vita_text>p {
+        font-size: 15;
+    }
+}
+
 #vita_title {
-    background-image: url('images/caption/vita.png');
-    background-repeat: no-repeat;
     height: 168px;
     width: 313px;
+    left: 50%;
+    max-width: 35%;
     position: fixed;
-    margin-left: -30px;
+    margin-left: 68px;
+    background-image: url('images/caption/vita.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+@media (max-width: 348px) {
+    #vita_title {
+        margin-left: -30px;
+    }
 }
 
 #portfolio {
-    position: absolute;
-    left: 50%;
+    height: 975px;
+    width: 100%;
 }
 
 #portfolio_title {
-    background-image: url('images/caption/portfolio.png');
-    background-repeat: no-repeat;
+    position: fixed;    
     height: 170px;
     width: 712px;
-    position: fixed;
-    margin-left: -330px;
+    left: 50%;
+    max-width: 90%;
+    margin-left: -350px;
+    background-image: url('images/caption/portfolio.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+@media (max-width: 791px) {
+    #portfolio_title {
+        margin-left: -45%;
+    }
 }
 
 #portfolio_button {
@@ -75,39 +122,68 @@ body {
     background-repeat: no-repeat;
     height: 106px;
     width: 760px;
-    top: 1770px;
-    position: absolute;
-    margin-left: -356px;
+    position: relative;
+    left: 50%;
+    margin-left: -380px;
+}
 
+@media (max-width: 845px) {
+    #portfolio_title {
+        margin-left: -45%;
+    }
 }
 
 #contact {
-    position: absolute;
-    left: 50%;
+    width: 100%;
+    height: 700px;
 }
 
 #contact_title {
-    background-image: url('images/caption/kontakt.png');
-    background-repeat: no-repeat;
     height: 168px;
     width: 630px;
+    max-width: 90%;
     position: fixed;
     margin-left: -315px;
+    left: 50%;
+    background-image: url('images/caption/kontakt.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+@media (max-width: 700px) {
+    #contact_title {
+        margin-left: -45%;
+    }
 }
 
 #contact_text{
-    height: 121px;
     width: 194px;
     position: relative;
-    top: 2780px;
     margin-left: 90px;
+    left: 50%;
 }
 
-#contact_text>p{
+#contact_text>p {
     font-size: 14;
     font-family: Verdana;
     color: rgb(115,117,120);
     text-align: right;
+}
+
+@media (max-width: 992px) {
+    #contact_text>p {
+        font-size: 13;
+    }
+}
+
+@media (max-width: 768px) {
+    #contact_text>p {
+        font-size: 15;
+    }
+}
+
+.link {
+    cursor: pointer;
 }
 
 a:link#mail {
@@ -124,33 +200,70 @@ a:hover#mail {
     border-color: rgb(71,176,184);
 }
 
+a:hover.powered {
+    border-bottom: 1px dotted;
+    border-color: rgb(71,176,184);
+}
+
+.powered {
+    text-decoration: none;
+    color: rgb(115,117,120);
+    border-bottom: 1px dotted white;
+}
+
 #impressum {
-    position: absolute;
-    left: 50%;
+    width: 100%;
 }
 
 #impressum_title {
-    background-image: url('images/caption/impressum.png');
-    background-repeat: no-repeat;
+    position: fixed;
     height: 183px;
     width: 822px;
-    position: fixed;
+    left: 50%;
+    max-width: 90%;
     margin-left: -411px;
+    background-image: url('images/caption/impressum.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+@media (max-width: 913px) {
+    #impressum_title {
+        margin-left: -45%;
+    }
 }
 
 #impressum_text {
-    top: 3500px;
-    height: 265px;
     width: 650px;
+    max-width: 90%;
     position: relative;
     margin-left: -325px;
+    left: 50%;
 }
 
-#impressum_text>p{
+@media (max-width: 650px) {
+    #impressum_text {
+        margin-left: -45%;
+    }
+}
+
+#impressum_text>p {
     font-size: 11;
     font-family: Verdana;
     color: rgb(115,117,120);
     text-align: center;
+}
+
+@media (max-width: 992px) {
+    #impressum_text>p {
+        font-size: 13;
+    }
+}
+
+@media (max-width: 768px) {
+    #impressum_text>p {
+        font-size: 15;
+    }
 }
 
 ul {
@@ -160,9 +273,15 @@ ul {
 #nav {
     position: fixed;
     top: 50%;
-    margin-left: -48px;
+    margin-left: -40px;
     margin-top: -150px;
     z-index: 2000;
+}
+
+@media (max-width: 1200px) {
+    #nav {
+        display: none;
+    }
 }
 
 .nav-item {
