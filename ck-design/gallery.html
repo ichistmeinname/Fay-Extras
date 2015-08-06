@@ -13,30 +13,26 @@ media="screen" />
 <script type="text/javascript" src="jquery.min.js"></script>
 <script type="text/javascript" src="gallery.js"></script>
 <div id="content">
-<div id="header">
   <div id="logo" class="link" data-href="index.html"
-    data-click="#logo"></div>
+    data-click="#logo">
+  </div>
+<div id="left">
+  <div id="left-bar">
+    <div id="back-nav" class="link"
+      data-href="index.html" data-click="#back-nav">
+    </div>
+    <div id="text">
+    </div>
+  </div>
+</div>
+<div id="center">
   <div id="top-bar">
     <div id="ci" class="gallery-navigation"></div>
     <div id="web" class="gallery-navigation"></div>
     <div id="etc" class="gallery-navigation"></div>
     <div style="clear:both"></div>
   </div>
- <div style="clear:both"></div>
-</div>
-<div id="center">
-  <div id="left-bar">
-  <div id="back-nav" class="link"
-    data-href="index.html" data-click="#back-nav">
-  </div>
-  <div style="clear: both"></div>
-  <div id="text">
-    <p id="caption1"></p>
-    <p id="caption2"></p>
-    <p id="description"></p>
-  </div>
-</div>
-<div id="gallery-box">
+  <div id="gallery-box">
     <div id="gallery-picture" class="gallery" data-category="ci"></div>
     <div id="leftarrow" class="arrow"></div>
     <div id="rightarrow" class="arrow"></div>
@@ -45,8 +41,15 @@ media="screen" />
     <div id="spot3" class="play-button"></div>
     <div id="spot4" class="play-button"></div>
     <div id="spot5" class="play-button"></div>
+    </div>
+      <div id="lower-bar">
+    <div id="text-low">
+    </div>
   </div>
+
 </div>
+<div style="clear: both"></div>
+
 <div id="line"></div>
 <div id="preload" style="display: none">
 <div id="audio">

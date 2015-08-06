@@ -9,6 +9,29 @@ body {
     margin-left: 35px;
 }
 
+#left {
+    float: left;
+}
+
+
+#content {
+    width: 100%;
+}
+
+#center {
+    float: left;
+    margin: -170px 15px 15px 15px;
+}
+
+@media (max-width: 1209px) {
+    #center {
+        margin-top: -100px;
+        left: 50%;
+        position: relative;
+        margin-left: -465px;
+    }
+}
+
 #line {
     background-image: url('images/gallery/punkteschlaufe.png');
     background-repeat: no-repeat;
@@ -25,9 +48,17 @@ body {
     background-repeat: no-repeat;
     width: 156px;
     height: 130px;
-    margin-right: 55px;
-    float: left;
+    margin: 30px 15px 30px 30px;
+    position: relative;
 }
+
+@media (max-width: 1209px) {
+    #logo {
+        left: 50%;
+        margin-left: -78px;
+    }
+}
+
 
 .gallery {
     background-repeat: no-repeat;
@@ -38,8 +69,7 @@ body {
     background-image: url('images/gallery/canvas.png');
     height: 600px;
     width: 900px;
-    margin-left: 250px;
-    margin-top: 25px;
+    margin: 15px 15px 15px 15px;
     position: relative;
 }
 
@@ -117,7 +147,13 @@ body {
     width: 200px;
     height: auto;
     margin: 50px 25px 0 25px;
-    float: left;
+    /* float: left; */
+}
+
+#text-low {
+    width: 100%;
+    /* margin: 25px 450px 25px 25px; */
+    position: relative;
 }
 
 #caption1, #caption2{
@@ -135,16 +171,44 @@ body {
     text-align: left;
 }
 
+@media (max-width: 1209px) {
+    #description, #caption1, #caption2 {
+        text-align: center;
+        width: 100%;
+        position: relative;
+    }
+}
+
 .gallery-navigation {
     background-repeat: no-repeat;
-    margin-top: 90px;
     margin-left: 75px;
     float: left;
     cursor: pointer;
 }
 
+#top-bar {
+    margin: 100px 15px 50px 15px;
+}
+
 #left-bar {
-    float: left;
+    width: 250px;
+}
+
+@media (max-width: 1209px) {
+    #left-bar {
+        display: none;
+    }
+}
+
+#lower-bar {
+    display: none;
+    width: 100%;
+}
+
+@media (max-width: 1209px) {
+    #lower-bar {
+        display: block;
+    }
 }
 
 #ci {
@@ -186,6 +250,6 @@ body {
     background-repeat: no-repeat;
     height: 28px;
     width: 190px;
-    float: left;
+    /* float: left; */
     margin-left: 0;
 }

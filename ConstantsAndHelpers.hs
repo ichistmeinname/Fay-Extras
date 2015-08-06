@@ -14,6 +14,9 @@ preloadId = pack "#preload"
 textId :: IdName
 textId = pack "#text"
 
+textLowId :: IdName
+textLowId = pack "#text-low"
+
 galleryPictureId :: IdName
 galleryPictureId = pack "#gallery-picture"
 

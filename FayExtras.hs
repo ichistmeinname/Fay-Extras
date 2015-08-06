@@ -15,7 +15,6 @@ data ScrollDir = Horizontal | Vertical
 selectClass :: Class -> Fay JQuery
 selectClass className = select (mkClass className)
 
-
 -- Adds a hyperref for the given element as an onclick-action
 -- Example:
 -- HTML-Snippet

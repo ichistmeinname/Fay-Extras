@@ -138,6 +138,8 @@ captionAndDescription path = do
    doneCallback answer = do
      object <- select textId
      setHtml answer object
+     object <- select textLowId
+     setHtml answer object
      return ()
    get' str = get (pack str)
   -- tObj <- select (pack "#text")
